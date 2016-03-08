@@ -1,4 +1,4 @@
-__author__ = 'Perkel'
+__author__ = 'perkel666'
 
 import pygame
 import os
@@ -16,18 +16,29 @@ def load_image(name):
     return image, image.get_rect()
 
 
+### MAIN MENU #########################################################
 class MainMenu():
     def __init__(self):
         self.visible = True
+
+        # MainMenu position
         self.position_x = 50
         self.position_y = 50
-
+        # Background image
+        self.background = MainMenuBackground()
+        # Background transparency
+        self.transparency = MainMenuTransparency()
+        # Buttons
         self.continue_button = ContinueButton()
         self.newgame_button = NewGameButton()
         self.save_button = SaveButton()
         self.load_button = LoadButton()
         self.option_button = OptionsButton()
         self.quit_button = QuitButton()
+        # MainMenu background image layer
+        self.mm_background = pygame.sprite.Group(self.background)
+        # MainMenu transparency layer
+        self.mm_transparency = pygame.sprite.Group(self.transparency)
 
     def show_menu(self):
         if self.visible is True:
@@ -51,29 +62,33 @@ class MainMenu():
                 if menu_option.visible is True:
                     menu_options_active.append(menu_option)
 
-            # 3. Creating Buttons sprite group from menu_options_active
+            # 3. Creating Buttons sprite group from menu_options_active and adding it to button layer
 
-            menu_buttons = pygame.sprite.Group()
+            mm_buttons = pygame.sprite.Group()
             for button in menu_options_active:
                 button.rect.y = (self.position_y - 50) + (75 * button.order)
                 button.rect.x = self.position_x + 17
-                menu_buttons.add(button)
+                mm_buttons.add(button)
 
-            # UPDATE GRAPHIC
-            main_menu_transparency = load_image('menu_transparency.png')
-            main_menu_background = MainMenuBackground()
-            middle_sprites = pygame.sprite.Group(main_menu_background)
+            # UPDATE MENU GRAPHIC
 
-            menu_buttons.update()
-            middle_sprites.update()
+            self.mm_transparency.update()
+            self.mm_background.update()
+            mm_buttons.update()
 
             # DISPLAY
-            screen.blit(main_menu_transparency[0], (0, 0))
-            middle_sprites.draw(screen)
-            menu_buttons.draw(screen)
+            self.mm_transparency.draw(screen)
+            self.mm_background.draw(screen)
+            mm_buttons.draw(screen)
         else:
             pass
 
+
+class MainMenuTransparency(pygame.sprite.Sprite):
+
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('menu_transparency.png')
 
 class MainMenuBackground(pygame.sprite.Sprite):
 
@@ -162,6 +177,7 @@ class QuitButton(pygame.sprite.Sprite):
         self.order = 6
         self.rect.x = 65
         self.rect.y = 68
+######################################################################
 
 
 class GameBackground(pygame.sprite.Sprite):
