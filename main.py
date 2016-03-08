@@ -64,6 +64,7 @@ class ContinueButton(pygame.sprite.Sprite):
         self.rect.y = 68
 
         # Functions that will do something
+        # added some text
 
 
 class NewGameButton(pygame.sprite.Sprite):
