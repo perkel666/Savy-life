@@ -15,8 +15,12 @@ def load_image(name):
 
     return image, image.get_rect()
 
+# MAIN MENU
+######################################################################
+######################################################################
+######################################################################
 
-### MAIN MENU #########################################################
+
 class MainMenu():
     def __init__(self):
         self.visible = True
@@ -24,8 +28,13 @@ class MainMenu():
         # MainMenu position
         self.position_x = 50
         self.position_y = 50
+        # Buttons position relative to background position
+        self.buttons_pos_x = 25
+        self.buttons_pos_y = 40
         # Background image
         self.background = MainMenuBackground()
+        self.background.rect.x = self.position_x
+        self.background.rect.y = self.position_y
         # Background transparency
         self.transparency = MainMenuTransparency()
         # Buttons
@@ -66,8 +75,8 @@ class MainMenu():
 
             mm_buttons = pygame.sprite.Group()
             for button in menu_options_active:
-                button.rect.y = (self.position_y - 50) + (75 * button.order)
-                button.rect.x = self.position_x + 17
+                button.rect.y = (self.position_y - self.buttons_pos_y) + (75 * button.order)
+                button.rect.x = self.position_x + self.buttons_pos_x
                 mm_buttons.add(button)
 
             # UPDATE MENU GRAPHIC
@@ -90,13 +99,12 @@ class MainMenuTransparency(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('menu_transparency.png')
 
+
 class MainMenuBackground(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('mainmenubackground.png')
-        self.rect.x = 40
-        self.rect.y = 40
 
 
 class ContinueButton(pygame.sprite.Sprite):
@@ -111,12 +119,7 @@ class ContinueButton(pygame.sprite.Sprite):
         self.visible = True
         # ORDER OF OPTION IN MENU
         self.order = 1
-        # BUTTON POSITION ++++++ TO BE CHANGED
-        self.rect.x = 65
-        self.rect.y = 68
-
-        # Functions that will do something
-        # added some text
+        # METHODS
 
 
 class NewGameButton(pygame.sprite.Sprite):
@@ -127,8 +130,6 @@ class NewGameButton(pygame.sprite.Sprite):
         self.imgae_no_hover = self.image
         self.visible = True
         self.order = 2
-        self.rect.x = 65
-        self.rect.y = 68
 
 
 class SaveButton(pygame.sprite.Sprite):
@@ -139,8 +140,6 @@ class SaveButton(pygame.sprite.Sprite):
         self.imgae_no_hover = self.image
         self.visible = True
         self.order = 3
-        self.rect.x = 65
-        self.rect.y = 68
 
 
 class LoadButton(pygame.sprite.Sprite):
@@ -151,8 +150,6 @@ class LoadButton(pygame.sprite.Sprite):
         self.imgae_no_hover = self.image
         self.visible = True
         self.order = 4
-        self.rect.x = 65
-        self.rect.y = 68
 
 
 class OptionsButton(pygame.sprite.Sprite):
@@ -163,8 +160,6 @@ class OptionsButton(pygame.sprite.Sprite):
         self.imgae_no_hover = self.image
         self.visible = True
         self.order = 5
-        self.rect.x = 65
-        self.rect.y = 68
 
 
 class QuitButton(pygame.sprite.Sprite):
@@ -175,8 +170,9 @@ class QuitButton(pygame.sprite.Sprite):
         self.imgae_no_hover = self.image
         self.visible = True
         self.order = 6
-        self.rect.x = 65
-        self.rect.y = 68
+
+######################################################################
+######################################################################
 ######################################################################
 
 
