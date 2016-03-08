@@ -208,11 +208,12 @@ class Game(object):
     def main(self, screen_resolution):
 
         # GAME INITIALIZATION
+        running = True
         clock = pygame.time.Clock()
         main_menu = MainMenu()
 
         background_image = GameBackground()
-        while 1:
+        while running is True:
 
             clock.tick(50)
 
@@ -220,6 +221,7 @@ class Game(object):
 
             show_main_menu = True
             saves_present = True
+            main_menu.visible = True
 
             # GAME LOGIC
 
@@ -229,14 +231,17 @@ class Game(object):
                     return
                 if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
                     return
+                if event.type == pygame.MOUSEBUTTONUP and \
+                        event.button == 1 and \
+                        main_menu.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
+                    main_menu.visible = False
+                    running = False
 
             # DISPLAYING
-
             background_image.show_backgroud()
             main_menu.show_menu()
 
             pygame.display.flip()
-
             # SOUND AND MUSIC
 
 ##############################################################################
@@ -246,4 +251,5 @@ if __name__ == "__main__":
     screen_x = 1280
     screen_y = 720
     screen = pygame.display.set_mode((screen_x, screen_y))
-    Game().main(screen)
+    game = Game()
+    game.main(screen)
