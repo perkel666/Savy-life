@@ -18,7 +18,6 @@ def load_image(name):
 
 class MainMenu():
     def __init__(self):
-
         self.visible = True
 
     def show_menu(self):
@@ -48,10 +47,79 @@ class MainMenuBackground(pygame.sprite.Sprite):
         self.rect.y = 40
 
 
+class ContinueButton(pygame.sprite.Sprite):
+    def __init__(self):
+        # TEMPLATE
+        pygame.sprite.Sprite.__init__(self)
+        # LOAD IMAGES AND SET RECTANGLE FOR SPRITE
+        self.image, self.rect = load_image('continue_normal.png')
+        self.image_hover, self.rect = load_image('continue_hover.png')
+        self.imgae_no_hover = self.image
+        # IS OPTION VISIBLE IN MENU
+        self.visible = True
+        # ORDER OF OPTION IN MENU
+        self.order = 1
+        # BUTTON POSITION ++++++ TO BE CHANGED
+        self.rect.x = 65
+        self.rect.y = 68
+
+
 class NewGameButton(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('newgame_normal.png')
+        self.image_hover, self.rect = load_image('newgame_hover.png')
+        self.imgae_no_hover = self.image
+        self.visible = True
+        self.order = 2
+        self.rect.x = 65
+        self.rect.y = 68
+
+
+class SaveButton(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('save_normal.png')
+        self.image_hover, self.rect = load_image('save_hover.png')
+        self.imgae_no_hover = self.image
+        self.visible = True
+        self.order = 3
+        self.rect.x = 65
+        self.rect.y = 68
+
+
+class LoadButton(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('load_normal.png')
+        self.image_hover, self.rect = load_image('load_hover.png')
+        self.imgae_no_hover = self.image
+        self.visible = True
+        self.order = 4
+        self.rect.x = 65
+        self.rect.y = 68
+
+
+class OptionsButton(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('options_normal.png')
+        self.image_hover, self.rect = load_image('options_hover.png')
+        self.imgae_no_hover = self.image
+        self.visible = True
+        self.order = 5
+        self.rect.x = 65
+        self.rect.y = 68
+
+
+class QuitButton(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('quit_normal.png')
+        self.image_hover, self.rect = load_image('quit_hover.png')
+        self.imgae_no_hover = self.image
+        self.visible = True
+        self.order = 6
         self.rect.x = 65
         self.rect.y = 68
 
