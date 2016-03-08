@@ -248,8 +248,10 @@ class Game(object):
 
 if __name__ == "__main__":
     pygame.init()
+    # WINDOW SIZE
     screen_x = 1280
     screen_y = 720
     screen = pygame.display.set_mode((screen_x, screen_y))
-    game = Game()
-    game.main(screen)
+    # FULLSCREEN
+    # screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
+    Game().main(screen)
