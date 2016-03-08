@@ -24,7 +24,6 @@ def load_image(name):
 class MainMenu():
     def __init__(self):
         self.visible = True
-
         # MainMenu position
         self.position_x = 50
         self.position_y = 50
@@ -75,8 +74,18 @@ class MainMenu():
 
             mm_buttons = pygame.sprite.Group()
             for button in menu_options_active:
+                # placement
                 button.rect.y = (self.position_y - self.buttons_pos_y) + (75 * button.order)
                 button.rect.x = self.position_x + self.buttons_pos_x
+                # checks for mouse hove and if True then it changes
+                # button image for _hover version
+                if button.rect.collidepoint(pygame.mouse.get_pos()):
+                    button.image = button.image_hover
+                else:
+                    if button.image != button.image_no_hover:
+                        button.image = button.image_no_hover
+                    else:
+                        pass
                 mm_buttons.add(button)
 
             # UPDATE MENU GRAPHIC
@@ -114,7 +123,7 @@ class ContinueButton(pygame.sprite.Sprite):
         # LOAD IMAGES AND SET RECTANGLE FOR SPRITE
         self.image, self.rect = load_image('continue_normal.png')
         self.image_hover, self.rect = load_image('continue_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         # IS OPTION VISIBLE IN MENU
         self.visible = True
         # ORDER OF OPTION IN MENU
@@ -127,7 +136,7 @@ class NewGameButton(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('newgame_normal.png')
         self.image_hover, self.rect = load_image('newgame_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         self.visible = True
         self.order = 2
 
@@ -137,7 +146,7 @@ class SaveButton(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('save_normal.png')
         self.image_hover, self.rect = load_image('save_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         self.visible = True
         self.order = 3
 
@@ -147,7 +156,7 @@ class LoadButton(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('load_normal.png')
         self.image_hover, self.rect = load_image('load_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         self.visible = True
         self.order = 4
 
@@ -157,7 +166,7 @@ class OptionsButton(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('options_normal.png')
         self.image_hover, self.rect = load_image('options_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         self.visible = True
         self.order = 5
 
@@ -167,7 +176,7 @@ class QuitButton(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('quit_normal.png')
         self.image_hover, self.rect = load_image('quit_hover.png')
-        self.imgae_no_hover = self.image
+        self.image_no_hover = self.image
         self.visible = True
         self.order = 6
 
@@ -190,7 +199,11 @@ class GameBackground(pygame.sprite.Sprite):
         background_sprite.draw(screen)
 
 
-### MAIN GAME CLASS ########################################################
+# MAIN GAME
+######################################################################
+######################################################################
+######################################################################
+
 class Game(object):
     def main(self, screen_resolution):
 
@@ -199,14 +212,14 @@ class Game(object):
         main_menu = MainMenu()
 
         background_image = GameBackground()
-        background = pygame.Surface(screen.get_size())
-        background = background.convert()
-        background.fill((200, 200, 200))
         while 1:
 
             clock.tick(50)
 
             # STATE OF THE GAME
+
+            show_main_menu = True
+            saves_present = True
 
             # GAME LOGIC
 
@@ -219,9 +232,8 @@ class Game(object):
 
             # DISPLAYING
 
-            screen.blit(background, (0, 0))
-            GameBackground.show_backgroud(background_image)
-            MainMenu.show_menu(main_menu)
+            background_image.show_backgroud()
+            main_menu.show_menu()
 
             pygame.display.flip()
 
