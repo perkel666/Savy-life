@@ -4,6 +4,7 @@ import pygame
 import os
 from load_graphic_sound import *
 from main_menu import *
+from gameplay_menu import GameplayMenu
 
 
 class GameBackground(pygame.sprite.Sprite):
@@ -26,44 +27,54 @@ class GameBackground(pygame.sprite.Sprite):
 ######################################################################
 
 class Game(object):
+    def __init__(self):
+        self.running = True
+        self.main_menu_visible = True
+        self.gameplay_menu_visible = False
+        self.debug = False
+
     def main(self, screen_resolution):
 
         # GAME INITIALIZATION
-        running = True
         clock = pygame.time.Clock()
+        gameplay_menu = GameplayMenu()
         main_menu = MainMenu()
 
         background_image = GameBackground()
-        while running is True:
+        while self.running is True:
 
-            clock.tick(50)
+            clock.tick(30)
 
             # STATE OF THE GAME
-
-            show_main_menu = True
-            saves_present = True
-            main_menu.visible = True
 
             # GAME LOGIC
 
             # INPUT
+            """
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return
                 if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
                     return
+            """
+            """
                 if event.type == pygame.MOUSEBUTTONUP and \
                         event.button == 1 and \
                         main_menu.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
                     main_menu.visible = False
-                    running = False
+                    self.running = False
+            """
 
             # DISPLAYING
             background_image.show_backgroud()
-            main_menu.show_menu(screen)
+            gameplay_menu.show_menu(screen, game)
+            main_menu.show_menu(screen, game)
+
 
             pygame.display.flip()
             # SOUND AND MUSIC
+
+
 
 ##############################################################################
 
@@ -75,4 +86,5 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((screen_x, screen_y))
     # FULLSCREEN
     # screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
-    Game().main(screen)
+    game = Game()
+    game.main(screen)

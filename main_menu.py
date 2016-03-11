@@ -1,4 +1,4 @@
-__author__ = 'Perkel'
+__author__ = 'perkel666'
 
 import os
 import pygame
@@ -32,8 +32,8 @@ class MainMenu():
         # MainMenu transparency layer
         self.mm_transparency = pygame.sprite.Group(self.transparency)
 
-    def show_menu(self, screen):
-        if self.visible is True:
+    def show_menu(self, screen, game):
+        if game.main_menu_visible is True:
 
             # MENU LOGIC
             # 1. Creating list of menu options
@@ -71,6 +71,29 @@ class MainMenu():
                     else:
                         pass
                 mm_buttons.add(button)
+            # INPUT
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP and \
+                        event.button == 1 and \
+                        self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
+                    game.main_menu = False
+                    print "quit"
+                    game.running = False
+
+                if event.type == pygame.MOUSEBUTTONUP and \
+                        event.button == 1 and \
+                        self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
+                    game.main_menu_visible = False
+                    print "new game"
+                    game.gameplay_menu_visible = True
+                    self.continue_button.visible = True
+
+                if event.type == pygame.MOUSEBUTTONUP and \
+                        event.button == 1 and \
+                        self.continue_button.rect.collidepoint(pygame.mouse.get_pos()):
+                    game.main_menu_visible = False
+                    game.gameplay_menu_visible = True
+                    print "continue"
 
             # UPDATE MENU GRAPHIC
 
@@ -109,7 +132,7 @@ class ContinueButton(pygame.sprite.Sprite):
         self.image_hover, self.rect = load_image('continue_hover.png')
         self.image_no_hover = self.image
         # IS OPTION VISIBLE IN MENU
-        self.visible = True
+        self.visible = False
         # ORDER OF OPTION IN MENU
         self.order = 1
         # METHODS
