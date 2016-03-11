@@ -5,6 +5,7 @@ import os
 from load_graphic_sound import *
 from main_menu import *
 from gameplay_menu import GameplayMenu
+from options_menu import OptionsMenu
 
 
 class GameBackground(pygame.sprite.Sprite):
@@ -29,8 +30,12 @@ class GameBackground(pygame.sprite.Sprite):
 class Game(object):
     def __init__(self):
         self.running = True
+        self.new_game_started = False
         self.main_menu_visible = True
         self.gameplay_menu_visible = False
+        self.options_menu_visible = False
+        self.load_menu_visible = False
+        self.save_menu_visible = False
         self.input_control = "main_menu"
         self.debug = False
 
@@ -40,6 +45,7 @@ class Game(object):
         clock = pygame.time.Clock()
         gameplay_menu = GameplayMenu()
         main_menu = MainMenu()
+        options = OptionsMenu()
 
         background_image = GameBackground()
         while self.running is True:
@@ -70,10 +76,10 @@ class Game(object):
             background_image.show_backgroud()
             gameplay_menu.show_menu(screen, game)
             main_menu.show_menu(screen, game)
+            options.show_menu(screen, game)
 
             pygame.display.flip()
             # SOUND AND MUSIC
-
 
 
 ##############################################################################

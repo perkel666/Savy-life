@@ -2,6 +2,7 @@ __author__ = 'perkel666'
 
 import pygame
 from load_graphic_sound import load_image
+from load_graphic_sound import load_sprite
 from debug import debug
 
 
@@ -14,10 +15,11 @@ class GameplayMenu():
         self.text_box = TextBox()
         ##### UI ELEMENTS POSITION
         # Down bar
-        self.down_bar_y = 500
-        self.player_portrait.rect.x = 50
+        self.down_bar_y = 525
+        self.down_bar_x = 10
+        self.player_portrait.rect.x = self.down_bar_x + 10
         self.player_portrait.rect.y = self.down_bar_y
-        self.text_box.rect.x = 300
+        self.text_box.rect.x = self.down_bar_x + 290
         self.text_box.rect.y = self.down_bar_y
 
     def show_menu(self, screen, game):
@@ -73,4 +75,11 @@ class TextBox(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('text_box.png')
+        self.visible = True
+
+
+class GameplayScreen(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('gameplay_screen')
         self.visible = True
