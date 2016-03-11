@@ -58,9 +58,10 @@ class MainMenu():
             # 3. Creating Buttons sprite group from menu_options_active and adding it to button layer
 
             mm_buttons = pygame.sprite.Group()
+            buttons_starting_position_y = 75
             for button in menu_options_active:
                 # placement
-                button.rect.y = (self.position_y - self.buttons_pos_y) + (75 * button.order)
+                button.rect.y = (self.position_y - self.buttons_pos_y) + buttons_starting_position_y
                 button.rect.x = self.position_x + self.buttons_pos_x
                 # checks for mouse hove and if True then it changes
                 # button image for _hover version
@@ -72,6 +73,7 @@ class MainMenu():
                     else:
                         pass
                 mm_buttons.add(button)
+                buttons_starting_position_y += 75
             # INPUT
 
             if game.input_control is "main_menu":
