@@ -3,7 +3,6 @@ __author__ = 'perkel666'
 import pygame
 from load_graphic_sound import load_image
 from load_graphic_sound import load_sprite
-from debug import debug
 
 
 class GameplayMenu():

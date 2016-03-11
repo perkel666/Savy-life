@@ -2,7 +2,7 @@ __author__ = 'perkel666'
 
 import os
 import pygame
-from load_graphic_sound import *
+from load_graphic_sound import load_image
 from sprite_effects import sprite_hover
 
 

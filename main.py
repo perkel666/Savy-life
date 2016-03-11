@@ -2,7 +2,7 @@ __author__ = 'perkel666'
 
 import pygame
 import os
-from load_graphic_sound import *
+from load_graphic_sound import load_image
 from main_menu import *
 from gameplay_menu import GameplayMenu
 from options_menu import OptionsMenu
