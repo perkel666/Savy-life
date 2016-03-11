@@ -41,3 +41,4 @@ class OptionsMenuBackground(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('options_menu_background.png')
         self.visible = True
+
