@@ -1,14 +1,15 @@
 __author__ = 'Perkel'
 
 import pygame
-from load_graphic_sound import load_image
+from load_graphic_sound import *
 from sprite_effects import sprite_hover
 
 
 class OptionsMenu():
     def __init__(self):
         self.visible = False
-
+        # Transparency
+        self.transparency = pygame.sprite.Group(load_sprite('menu_transparency.png'))
         # BACKGROUND
         self.options_menu_background = OptionsMenuBackground()
         self.options_menu_background.rect.x = 50
@@ -40,14 +41,15 @@ class OptionsMenu():
                             event.button == 1 and \
                             self.close_button.rect.collidepoint(pygame.mouse.get_pos()):
                         game.main_menu_visible = True
-                        game.gameplay_menu_visible = True
                         game.options_menu_visible = False
                         game.input_control = "main_menu"
                         print "show main menu"
             # UPDATE GRAPHIC
+            self.transparency.update()
             background.update()
             buttons_sprite_layer.update()
             # DISPLAY
+            self.transparency.draw(screen)
             background.draw(screen)
             buttons_sprite_layer.draw(screen)
 

@@ -101,12 +101,11 @@ class MainMenu():
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.option_button.rect.collidepoint(pygame.mouse.get_pos()):
+
                         game.main_menu_visible = False
-                        game.gameplay_menu_visible = False
                         game.options_menu_visible = True
                         game.input_control = "options_menu"
                         print "options"
-
 
             # UPDATE MENU GRAPHIC
 

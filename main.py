@@ -72,8 +72,8 @@ if __name__ == "__main__":
     # WINDOW SIZE
     screen_x = 1280
     screen_y = 720
-    screen = pygame.display.set_mode((screen_x, screen_y))
+    # screen = pygame.display.set_mode((screen_x, screen_y))
     # FULLSCREEN
-    # screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
     game = Game()
     game.main(screen)
