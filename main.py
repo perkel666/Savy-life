@@ -12,14 +12,6 @@ class GameBackground(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('background.jpg')
-        self.rect.x = 0
-        self.rect.y = 0
-
-    def show_backgroud(self):
-        background = GameBackground()
-        background_sprite = pygame.sprite.Group(background)
-        background_sprite.update()
-        background_sprite.draw(screen)
 
 
 # MAIN GAME
@@ -38,6 +30,8 @@ class Game(object):
         self.save_menu_visible = False
         self.input_control = "main_menu"
         self.debug = False
+        # BACKGROUND
+        self.background_image = GameBackground()
 
     def main(self, screen_resolution):
 
@@ -47,33 +41,22 @@ class Game(object):
         main_menu = MainMenu()
         options = OptionsMenu()
 
-        background_image = GameBackground()
         while self.running is True:
 
-            clock.tick(30)
+            clock.tick(60)
 
             # STATE OF THE GAME
 
             # GAME LOGIC
 
             # INPUT
-            """
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
-                if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                    return
-            """
-            """
-                if event.type == pygame.MOUSEBUTTONUP and \
-                        event.button == 1 and \
-                        main_menu.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
-                    main_menu.visible = False
-                    self.running = False
-            """
+
+            # DISPLAY background
+            background_image = pygame.sprite.Group(self.background_image)
+            background_image.update()
+            background_image.draw(screen)
 
             # DISPLAYING
-            background_image.show_backgroud()
             gameplay_menu.show_menu(screen, game)
             main_menu.show_menu(screen, game)
             options.show_menu(screen, game)

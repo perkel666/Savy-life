@@ -3,6 +3,7 @@ __author__ = 'perkel666'
 import os
 import pygame
 from load_graphic_sound import *
+from sprite_effects import sprite_hover
 
 
 class MainMenu():
@@ -65,13 +66,8 @@ class MainMenu():
                 button.rect.x = self.position_x + self.buttons_pos_x
                 # checks for mouse hove and if True then it changes
                 # button image for _hover version
-                if button.rect.collidepoint(pygame.mouse.get_pos()):
-                    button.image = button.image_hover
-                else:
-                    if button.image != button.image_no_hover:
-                        button.image = button.image_no_hover
-                    else:
-                        pass
+                sprite_hover(button)
+
                 mm_buttons.add(button)
                 buttons_starting_position_y += 75
             # INPUT
