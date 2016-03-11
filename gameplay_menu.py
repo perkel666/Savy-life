@@ -18,8 +18,10 @@ class GameplayMenu():
         # Down bar
         self.down_bar_y = 525
         self.down_bar_x = 10
+        # player portrait position
         self.player_portrait.rect.x = self.down_bar_x + 10
         self.player_portrait.rect.y = self.down_bar_y
+        # text_box position
         self.text_box.rect.x = self.down_bar_x + 290
         self.text_box.rect.y = self.down_bar_y
 
@@ -45,7 +47,7 @@ class GameplayMenu():
             background.add(self.gameplay_background)
 
             # INPUT
-            if game.input_control == "gameplay_menu":
+            if game.input_control is "gameplay_menu":
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \

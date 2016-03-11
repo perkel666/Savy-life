@@ -28,6 +28,7 @@ def load_sprite(name):
     sprite = CreateSprite()
     return sprite
 
+
 def find(name):
     for root, dirs, files in os.walk(os.curdir):
         if name in files:

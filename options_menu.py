@@ -17,7 +17,7 @@ class OptionsMenu():
         # close button and position
         self.close_button = CloseButton()
         self.close_button.rect.x = self.options_menu_background.rect.x + 700
-        self.close_button.rect.x = self.options_menu_background.rect.y + 50
+        self.close_button.rect.y = self.options_menu_background.rect.y + 50
 
     def show_menu(self, screen, game):
         if game.options_menu_visible is True:
@@ -34,7 +34,7 @@ class OptionsMenu():
                     sprite_hover(button)
                 buttons_sprite_layer.add(button)
             # INPUT
-            if game.input_control == "options_menu":
+            if game.input_control is "options_menu":
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
