@@ -109,6 +109,7 @@ class MainMenu():
                         game.input_control = "options_menu"
                         print "options"
 
+
             # UPDATE MENU GRAPHIC
 
             self.mm_transparency.update()
