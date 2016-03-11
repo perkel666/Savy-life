@@ -31,6 +31,7 @@ class Game(object):
         self.running = True
         self.main_menu_visible = True
         self.gameplay_menu_visible = False
+        self.input_control = "main_menu"
         self.debug = False
 
     def main(self, screen_resolution):
@@ -69,7 +70,6 @@ class Game(object):
             background_image.show_backgroud()
             gameplay_menu.show_menu(screen, game)
             main_menu.show_menu(screen, game)
-
 
             pygame.display.flip()
             # SOUND AND MUSIC

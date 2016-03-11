@@ -8,6 +8,7 @@ from load_graphic_sound import *
 class MainMenu():
     def __init__(self):
         self.visible = True
+        self.input_control = True
         # MainMenu position
         self.position_x = 50
         self.position_y = 50
@@ -72,28 +73,32 @@ class MainMenu():
                         pass
                 mm_buttons.add(button)
             # INPUT
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP and \
-                        event.button == 1 and \
-                        self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
-                    game.main_menu = False
-                    print "quit"
-                    game.running = False
 
-                if event.type == pygame.MOUSEBUTTONUP and \
-                        event.button == 1 and \
-                        self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
-                    game.main_menu_visible = False
-                    print "new game"
-                    game.gameplay_menu_visible = True
-                    self.continue_button.visible = True
+            if game.input_control is "main_menu":
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu = False
+                        print "quit"
+                        game.running = False
 
-                if event.type == pygame.MOUSEBUTTONUP and \
-                        event.button == 1 and \
-                        self.continue_button.rect.collidepoint(pygame.mouse.get_pos()):
-                    game.main_menu_visible = False
-                    game.gameplay_menu_visible = True
-                    print "continue"
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu_visible = False
+                        print "new game"
+                        game.gameplay_menu_visible = True
+                        self.continue_button.visible = True
+                        game.input_control = "gameplay_menu"
+
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.continue_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu_visible = False
+                        game.gameplay_menu_visible = True
+                        game.input_control = "gameplay_menu"
+                        print "continue"
 
             # UPDATE MENU GRAPHIC
 

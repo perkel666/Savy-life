@@ -8,14 +8,17 @@ from debug import debug
 class GameplayMenu():
     def __init__(self):
         self.visible = False
+        self.input_control = False
         # UI ELEMENTS
         self.player_portrait = PlayerPortrait()
         self.text_box = TextBox()
-        # UI ELEMENTS POSITION
+        ##### UI ELEMENTS POSITION
+        # Down bar
+        self.down_bar_y = 500
         self.player_portrait.rect.x = 50
-        self.player_portrait.rect.y = 620
+        self.player_portrait.rect.y = self.down_bar_y
         self.text_box.rect.x = 300
-        self.text_box.rect.y = 620
+        self.text_box.rect.y = self.down_bar_y
 
     def show_menu(self, screen, game):
         if game.gameplay_menu_visible is True:
@@ -43,12 +46,15 @@ class GameplayMenu():
             debug("ui_elements sprite group creation", game)
 
             # INPUT
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP and \
-                        event.button == 1 and \
-                        self.player_portrait.rect.collidepoint(pygame.mouse.get_pos()):
-                    game.main_menu_visible = True
-                    print "show main menu"
+            if game.input_control == "gameplay_menu":
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.player_portrait.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu_visible = True
+                        game.gameplay_menu_visible = True
+                        game.input_control = "main_menu"
+                        print "show main menu"
             # UPDATE GRAPHIC
             ui_elements.update()
             # DISPLAY
