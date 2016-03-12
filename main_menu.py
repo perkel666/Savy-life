@@ -4,6 +4,7 @@ import os
 import pygame
 from load_graphic_sound import load_image
 from sprite_effects import sprite_hover
+from player_creation_menu import Player
 
 
 class MainMenu():

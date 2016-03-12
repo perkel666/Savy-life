@@ -6,6 +6,7 @@ from load_graphic_sound import load_image
 from main_menu import *
 from gameplay_menu import GameplayMenu
 from options_menu import OptionsMenu
+from player_creation_menu import Player
 
 
 class GameBackground(pygame.sprite.Sprite):
@@ -23,6 +24,7 @@ class Game(object):
     def __init__(self):
         self.running = True
         self.new_game_started = False
+        self.player_creation_menu_visible = False
         self.main_menu_visible = True
         self.gameplay_menu_visible = False
         self.options_menu_visible = False
@@ -32,6 +34,8 @@ class Game(object):
         self.debug = False
         # BACKGROUND
         self.background_image = GameBackground()
+        # player creation
+        self.player = Player()
 
     def main(self, screen_resolution):
 
