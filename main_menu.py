@@ -75,23 +75,8 @@ class MainMenu():
 
             if game.input_control is "main_menu":
                 for event in pygame.event.get():
-                    if event.type == pygame.MOUSEBUTTONUP and \
-                            event.button == 1 and \
-                            self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
-                        game.main_menu = False
-                        print "quit"
-                        game.running = False
 
-                    if event.type == pygame.MOUSEBUTTONUP and \
-                            event.button == 1 and \
-                            self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
-                        game.main_menu_visible = False
-                        print "new game"
-                        game.gameplay_menu_visible = True
-                        self.continue_button.visible = True
-                        game.new_game_started = True
-                        game.input_control = "gameplay_menu"
-
+                    # BUTTON CONTINUE
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.continue_button.rect.collidepoint(pygame.mouse.get_pos()):
@@ -99,6 +84,20 @@ class MainMenu():
                         game.gameplay_menu_visible = True
                         game.input_control = "gameplay_menu"
                         print "continue"
+
+                    # BUTTON NEW GAME
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu_visible = False
+                        game.player_creation_menu_visible = True
+                        game.gameplay_menu_visible = False
+                        self.continue_button.visible = True
+                        game.new_game_started = True
+                        game.input_control = "player_creation_menu"
+                        print "new game"
+
+                    # BUTTON OPTIONS
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.option_button.rect.collidepoint(pygame.mouse.get_pos()):
@@ -107,6 +106,14 @@ class MainMenu():
                         game.options_menu_visible = True
                         game.input_control = "options_menu"
                         print "options"
+
+                    # BUTTON QUIT
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu = False
+                        game.running = False
+                        print "quit"
 
             # UPDATE MENU GRAPHIC
 

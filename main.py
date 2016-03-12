@@ -6,7 +6,7 @@ from load_graphic_sound import load_image
 from main_menu import *
 from gameplay_menu import GameplayMenu
 from options_menu import OptionsMenu
-from player_creation_menu import Player
+from player_creation_menu import *
 
 
 class GameBackground(pygame.sprite.Sprite):
@@ -44,6 +44,7 @@ class Game(object):
         gameplay_menu = GameplayMenu()
         main_menu = MainMenu()
         options = OptionsMenu()
+        player_creation_menu = PlayerCreationMenu(game)
 
         while self.running is True:
 
@@ -63,6 +64,7 @@ class Game(object):
             # DISPLAYING
             gameplay_menu.show_menu(screen, game)
             main_menu.show_menu(screen, game)
+            player_creation_menu.show_menu(screen, game)
             options.show_menu(screen, game)
 
             pygame.display.flip()
