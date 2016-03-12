@@ -69,11 +69,15 @@ class Game(object):
 
 if __name__ == "__main__":
     pygame.init()
+    # Window decoration
+    # icon = pygame.image.load('gameicon.png')
+    # pygame.display.set_icon(icon)
+    # pygame.display.set_caption('Main Window Tutorial')
     # WINDOW SIZE
     screen_x = 1280
     screen_y = 720
-    # screen = pygame.display.set_mode((screen_x, screen_y))
+    screen = pygame.display.set_mode((screen_x, screen_y))
     # FULLSCREEN
-    screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
+    # screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
     game = Game()
     game.main(screen)

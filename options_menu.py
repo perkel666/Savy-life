@@ -20,10 +20,29 @@ class OptionsMenu():
         self.close_button.rect.x = self.options_menu_background.rect.x + 700
         self.close_button.rect.y = self.options_menu_background.rect.y + 50
 
+        # Buttons
+        self.buttons_position_x = self.options_menu_background.rect.x + 30
+        self.buttons_position_y = self.options_menu_background.rect.y + 40
+        self.button_game = ButtonGame()
+        self.button_sound = ButtonSound()
+        self.button_back = ButtonBack()
+        self.button_display = ButtonDisplay()
+
+        # List of buttons
+        self.buttons_list = [
+            self.button_game,
+            self.button_display,
+            self.button_sound,
+            self.button_back
+        ]
+
     def show_menu(self, screen, game):
         if game.options_menu_visible is True:
 
+            #
             # MENU LOGIC
+            #
+
             background = pygame.sprite.Group()
             background.add(self.options_menu_background)
             active_buttons = [
@@ -34,9 +53,26 @@ class OptionsMenu():
                 if button.image_hover is not None:
                     sprite_hover(button)
                 buttons_sprite_layer.add(button)
+
+            # Buttons positioning and adding to sprite group.
+            count = 0
+            for button in self.buttons_list:
+                button.rect.x = self.buttons_position_x
+                button.rect.y = self.buttons_position_y + (count * 70)
+                count += 1
+            # Buttons adding to sprite group and changing art based on hover mouse
+            buttons_layer = pygame.sprite.Group()
+
+            for button in self.buttons_list:
+                sprite_hover(button)
+                buttons_layer.add(button)
+            #
             # INPUT
+            #
+
             if game.input_control is "options_menu":
                 for event in pygame.event.get():
+                    # - CLOSE BUTTON (RIGHT CORNER)
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.close_button.rect.collidepoint(pygame.mouse.get_pos()):
@@ -44,13 +80,48 @@ class OptionsMenu():
                         game.options_menu_visible = False
                         game.input_control = "main_menu"
                         print "show main menu"
+                    # GAME BUTTON
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.button_game.rect.collidepoint(pygame.mouse.get_pos()):
+                        ###
+                        ###DO SOMETHING
+                        ###
+                        print "button_game"
+                    # DISPLAY BUTTON
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.button_display.rect.collidepoint(pygame.mouse.get_pos()):
+                        ###
+                        ###DO SOMETHING
+                        ###
+                        print "button_display"
+                    # SOUND BUTTON
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.button_sound.rect.collidepoint(pygame.mouse.get_pos()):
+                        ###
+                        ###DO SOMETHING
+                        ###
+                        print "button_sound"
+                    # BACK BUTTON
+                    if event.type == pygame.MOUSEBUTTONUP and \
+                            event.button == 1 and \
+                            self.button_back.rect.collidepoint(pygame.mouse.get_pos()):
+                        game.main_menu_visible = True
+                        game.options_menu_visible = False
+                        game.input_control = "main_menu"
+                        print "button_back"
+
             # UPDATE GRAPHIC
             self.transparency.update()
             background.update()
+            buttons_layer.update()
             buttons_sprite_layer.update()
             # DISPLAY
             self.transparency.draw(screen)
             background.draw(screen)
+            buttons_layer.draw(screen)
             buttons_sprite_layer.draw(screen)
 
 
@@ -68,3 +139,36 @@ class CloseButton(pygame.sprite.Sprite):
         self.image_no_hover = self.image
         self.image_hover, self.rect = load_image('close_options_hover.png')
 
+### BUTTONS
+
+
+class ButtonDisplay(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('button_display.png')
+        self.image_no_hover = self.image
+        self.image_hover, self.rect = load_image('button_display_hover.png')
+
+
+class ButtonSound(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('button_sound.png')
+        self.image_no_hover = self.image
+        self.image_hover, self.rect = load_image('button_sound_hover.png')
+
+
+class ButtonGame(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('button_game.png')
+        self.image_no_hover = self.image
+        self.image_hover, self.rect = load_image('button_game_hover.png')
+
+
+class ButtonBack(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image, self.rect = load_image('button_back.png')
+        self.image_no_hover = self.image
+        self.image_hover, self.rect = load_image('button_back_hover.png')

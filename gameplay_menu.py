@@ -10,8 +10,8 @@ class GameplayMenu():
         self.visible = False
         self.input_control = False
         # UI ELEMENTS
-        self.player_portrait_background = load_sprite('player_background_01.png')
-        self.player_portrait = load_sprite('player.png')
+        self.player_portrait_background = load_sprite('player_background_001.png')
+        self.player_portrait = load_sprite('player-001.png')
         self.text_box = load_sprite('text_box.png')
         self.gameplay_background = load_sprite('gameplay_background.png')
         ##### UI ELEMENTS POSITION
@@ -87,7 +87,7 @@ class GameplayMenu():
 class PlayerPortrait(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('player.png')
+        self.image, self.rect = load_image('player-001.png')
         self.visible = True
 
 
