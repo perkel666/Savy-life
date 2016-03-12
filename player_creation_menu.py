@@ -32,15 +32,18 @@ class Player():
         # Traits
         # Backstory
 
-    def show_player_portrait(self, x_axis, y_axis, screen):
+    def show_player_portrait(self, (x_axis, y_axis), screen):
         #POSITION OF PORTRAIT
-        self.player_portrait.rect.x = x_axis
-        self.player_portrait.rect.y = y_axis
-        self.player_background.rect.x = x_axis
-        self.player_background.rect.y = y_axis
+        face = self.player_portrait
+        background = self.player_background
+
+        face.rect.x = x_axis
+        face.rect.y = y_axis
+        background.rect.x = x_axis
+        background.rect.y = y_axis
         #CREATING LAYERS TO DISPLAY
-        layer_background = pygame.sprite.Group(self.player_background)
-        layer_face = pygame.sprite.Group(self.player_portrait)
+        layer_background = pygame.sprite.Group(background)
+        layer_face = pygame.sprite.Group(face)
         #UPDATE SPRITES
         layer_background.update()
         layer_face.update()
@@ -70,6 +73,7 @@ class PlayerCreationMenu():
         self.button_ar_left.rect.y = self.button_ar_right.rect.y
 
         # choose player head
+        self.player_portrait_position = (550, 130)
         player_portrait_list = os.listdir('data/art/player/head')
         player_background_list = os.listdir('data/art/player/backgrounds')
         game.player.player_portrait = load_sprite(player_portrait_list[1])
@@ -110,10 +114,7 @@ class PlayerCreationMenu():
             sprite_group_buttons.update()
             #DISPLAY
             sprite_group_background.draw(screen)
-            game.player.show_player_portrait(
-                self.background_image.rect.x+550,
-                self.background_image.rect.y+130,
-                screen)
+            game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)
 
 
