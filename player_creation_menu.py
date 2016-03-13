@@ -55,7 +55,18 @@ class Player():
 class PlayerCreationMenu():
     def __init__(self, game):
         self.visible = False
+        # PORTRAIT POSITION
+        self.portrait_position = (450, 100)
+
+        # choose player head
+        self.player_portrait_position = (self.portrait_position[0]+100, self.portrait_position[1]+30)
+        player_portrait_list = os.listdir('data/art/player/head')
+        player_background_list = os.listdir('data/art/player/backgrounds')
+        game.player.player_portrait = load_sprite(player_portrait_list[1])
+        game.player.player_background = load_sprite(player_background_list[2])
+
         #Menu Background image
+
         self.background_image = load_sprite('player_creation_screen.png')
         self.background_image.rect.x = 0
         self.background_image.rect.y = 0
@@ -63,36 +74,52 @@ class PlayerCreationMenu():
         self.button_finish = FinishButton()
         self.button_finish.rect.x = 900
         self.button_finish.rect.y = 600
-        # PC ARROWS
-        self.button_ar_right = PcArrowRight()
-        self.button_ar_right.rect.x = 655
-        self.button_ar_right.rect.y = 160
 
-        self.button_ar_left = PcArrowLeft()
-        self.button_ar_left.rect.x = self.button_ar_right.rect.x - 150
-        self.button_ar_left.rect.y = self.button_ar_right.rect.y
-
-        # choose player head
-        self.player_portrait_position = (550, 130)
-        player_portrait_list = os.listdir('data/art/player/head')
-        player_background_list = os.listdir('data/art/player/backgrounds')
-        game.player.player_portrait = load_sprite(player_portrait_list[1])
-        game.player.player_background = load_sprite(player_background_list[2])
+        # BUTTONS
+        # BUTTON NEXT FACE
+        self.button_face_next = PlayerCreationMenu.ButtonPortraitFaceNext(
+            'pc_right_arrow.png', (
+                self.player_portrait_position[0]+105,
+                self.player_portrait_position[1]+80))
+        # BUTTON PREVIOUS FACE
+        self.button_face_previous = PlayerCreationMenu.ButtonPortraitFacePrevious(
+            'pc_left_arrow.png', (
+                self.button_face_next.rect.x - 150,
+                self.button_face_next.rect.y))
+        # BUTTON NEXT BACKGROUND
+        self.button_background_next = PlayerCreationMenu.ButtonPortraitBackgroundNext(
+            'pc_right_arrow.png', (
+                self.button_face_next.rect.x,
+                self.button_face_next.rect.y+50))
+        # BUTTON PREVIOUS BACKGROUND
+        self.button_background_previous = PlayerCreationMenu.ButtonPortraitBackgroundPrevious(
+            'pc_left_arrow.png', (
+                self.button_face_previous.rect.x,
+                self.button_background_next.rect.y))
 
     def show_menu(self, screen, game):
         if game.player_creation_menu_visible is True:
             #MENU LOGIC
             sprite_group_background = pygame.sprite.Group(self.background_image)
             sprite_hover(self.button_finish)
-            sprite_pressed(self.button_ar_left)
-            sprite_pressed(self.button_ar_right)
             sprite_group_buttons = pygame.sprite.Group(
-                self.button_finish,
-                self.button_ar_right,
-                self.button_ar_left)
+                self.button_finish
+            )
+
+            sprite_group_buttons2 = pygame.sprite.Group(
+                self.button_face_next,
+                self.button_face_previous,
+                self.button_background_next,
+                self.button_background_previous
+            )
+
+            for sprite in sprite_group_buttons2:
+                    sprite.get_state()
+
             #INPUT
             if game.input_control is "player_creation_menu":
                 for event in pygame.event.get():
+                    """ # BACKGROUND CLICK === > MAIN MENU
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.background_image.rect.collidepoint(pygame.mouse.get_pos()):
@@ -100,6 +127,7 @@ class PlayerCreationMenu():
                         game.player_creation_menu_visible = False
                         game.input_control = "main_menu"
                         print "show main menu "
+                    """
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             self.button_finish.rect.collidepoint(pygame.mouse.get_pos()):
@@ -112,10 +140,57 @@ class PlayerCreationMenu():
             #UPDATE
             sprite_group_background.update()
             sprite_group_buttons.update()
+            sprite_group_buttons2.update()
             #DISPLAY
             sprite_group_background.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)
+            sprite_group_buttons2.draw(screen)
+
+    # BUTTON CLASSES
+    class ButtonPortraitFaceNext(CreateSprite2):
+        def __init__(self, name,  position_tuple_x_y):
+            super(PlayerCreationMenu.ButtonPortraitFaceNext, self).__init__(name, hover=True, pressed=True)
+            self.description = "Next face"
+            self.rect.x = position_tuple_x_y[0]
+            self.rect.y = position_tuple_x_y[1]
+
+        def show_description(self):
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                return self.description
+
+    class ButtonPortraitFacePrevious(CreateSprite2):
+        def __init__(self, name,  position_tuple_x_y):
+            super(PlayerCreationMenu.ButtonPortraitFacePrevious, self).__init__(name, hover=True, pressed=True)
+            self.description = "Previous face"
+            self.rect.x = position_tuple_x_y[0]
+            self.rect.y = position_tuple_x_y[1]
+
+        def show_description(self):
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                return self.description
+
+    class ButtonPortraitBackgroundNext(CreateSprite2):
+        def __init__(self, name,  position_tuple_x_y):
+            super(PlayerCreationMenu.ButtonPortraitBackgroundNext, self).__init__(name, hover=True, pressed=True)
+            self.description = "Next background"
+            self.rect.x = position_tuple_x_y[0]
+            self.rect.y = position_tuple_x_y[1]
+
+        def show_description(self):
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                return self.description
+
+    class ButtonPortraitBackgroundPrevious(CreateSprite2):
+        def __init__(self, name,  position_tuple_x_y):
+            super(PlayerCreationMenu.ButtonPortraitBackgroundPrevious, self).__init__(name, hover=True, pressed=True)
+            self.description = "Previous background"
+            self.rect.x = position_tuple_x_y[0]
+            self.rect.y = position_tuple_x_y[1]
+
+        def show_description(self):
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                return self.description
 
 
 class FinishButton(pygame.sprite.Sprite):
@@ -126,20 +201,3 @@ class FinishButton(pygame.sprite.Sprite):
         self.image_hover, self.rect = load_image('pc_button_finish_hover.png')
 
 
-class PcArrowRight(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.pressed = False
-        self.image, self.rect = load_image('pc_right_arrow_normal.png')
-        self.image_no_hover = self.image
-        self.image_hover, self.rect = load_image('pc_right_arrow_hover.png')
-        self.image_pressed, self.rect = load_image('pc_right_arrow_pressed.png')
-
-
-class PcArrowLeft(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('pc_left_arrow_normal.png')
-        self.image_no_hover = self.image
-        self.image_hover, self.rect = load_image('pc_left_arrow_hover.png')
-        self.image_pressed, self.rect = load_image('pc_left_arrow_pressed.png')
