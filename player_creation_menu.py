@@ -53,27 +53,19 @@ class Player():
 
 
 class PlayerCreationMenu():
-    def __init__(self, game):
+    def __init__(self):
         self.visible = False
+        self.input_control = False
         # DOWN BAR
         self.bar_down = (0, 600)
         # PORTRAIT POSITION
         self.portrait_position = (450, 100)
-        # MAIN STATS POSITION
-        # SKILLS POSITION
-        # HEALTH STAMINA POSITION
-        # choose player head
+
         self.player_portrait_position = (self.portrait_position[0]+100, self.portrait_position[1]+30)
-        player_portrait_list = os.listdir('data/art/player/head')
-        player_background_list = os.listdir('data/art/player/backgrounds')
-        game.player.player_portrait = load_sprite(player_portrait_list[1])
-        game.player.player_background = load_sprite(player_background_list[2])
 
         # Menu Background image
 
         self.background_image = load_sprite('player_creation_screen.png')
-        self.background_image.rect.x = 0
-        self.background_image.rect.y = 0
 
                 # BUTTONS - player portrait
 
@@ -135,7 +127,7 @@ class PlayerCreationMenu():
         # DOWN BAR
     class ButtonFinish(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
-            super(PlayerCreationMenu.ButtonFinish, self).__init__(name, hover=True,)
+            super(PlayerCreationMenu.ButtonFinish, self).__init__(name, hover=True)
             self.description = "Next face"
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]

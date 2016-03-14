@@ -1,14 +1,15 @@
 __author__ = 'perkel666'
 
 import pygame
-from load_graphic_sound import load_image
-from load_graphic_sound import load_sprite
+from load_graphic_sound import *
 
 
 class GameplayMenu():
     def __init__(self):
         self.visible = False
         self.input_control = False
+
+        ############## OLD
         # UI ELEMENTS
         self.text_box = TextBox()
         self.gameplay_background = load_sprite('gameplay_background.png')
@@ -23,9 +24,14 @@ class GameplayMenu():
         self.text_box.rect.x = self.down_bar_x + 290
         self.text_box.rect.y = self.down_bar_y
         self.text_box_position = (self.down_bar_x+290, self.down_bar_y)
+        ############# OLD
 
     def show_menu(self, screen, game):
         if game.gameplay_menu_visible is True:
+
+
+
+            ############ OLD
             # MENU LOGIC
             # 1. Creating list of ui options
             ui_elements_list_front = [
@@ -65,6 +71,8 @@ class GameplayMenu():
             #ui_elements_front.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
             self.text_box.show_text_box(self.text_box_position, screen)
+
+            ########### OLD
 
 
 class PlayerPortrait(pygame.sprite.Sprite):

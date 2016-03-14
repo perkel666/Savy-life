@@ -9,12 +9,6 @@ from options_menu import OptionsMenu
 from player_creation_menu import *
 
 
-class GameBackground(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('background.jpg')
-
-
 # MAIN GAME
 ######################################################################
 ######################################################################
@@ -22,63 +16,72 @@ class GameBackground(pygame.sprite.Sprite):
 
 class Game(object):
     def __init__(self):
+        # DEBUG
+        self.debug = True
+        # GAME INITIALIZATION
         self.running = True
-        # Event log
+        # INPUT INITIALIZATION
+        self.clock = pygame.time.Clock()
         self.events = None
         self.mouse_position = None
+        self.input_control = "main_menu"  # Current menu  OLD
+        # DOES PLAYER USED NEW GAME ?
         self.new_game_started = False
+
+        # PLAYER LOCAL
+        self.player = None
+
+        ############ OLD
         self.player_creation_menu_visible = False
         self.main_menu_visible = True
         self.gameplay_menu_visible = False
-        self.options_menu_visible = False
+        self.options_menu_visible = False                # REWORK
         self.load_menu_visible = False
         self.save_menu_visible = False
-        self.input_control = "main_menu"
-        self.debug = False
-        # BACKGROUND
-        self.background_image = GameBackground()
+        ############ OLD
+
+        # MENU INITIALIZATION
+        self.menu_gameplay = GameplayMenu()
+        self.menu_main = MainMenu()
+        self.menu_options = OptionsMenu()
+        self.menu_player_creation = PlayerCreationMenu()
+
+        ########### OLD
         # player creation
         self.player = Player()
+        player_portrait_list = os.listdir('data/art/player/head')
+        player_background_list = os.listdir('data/art/player/backgrounds')           # REWORK
+        self.player.player_portrait = load_sprite(player_portrait_list[1])
+        self.player.player_background = load_sprite(player_background_list[2])
+        ########## OLD
 
-    def main(self, screen_resolution):
-
-        # GAME INITIALIZATION
-        clock = pygame.time.Clock()
-        gameplay_menu = GameplayMenu()
-        main_menu = MainMenu()
-        options = OptionsMenu()
-        player_creation_menu = PlayerCreationMenu(game)
-
+    def main(self, screen):
+        # MAIN LOOP
         while self.running is True:
-
-            clock.tick(60)
+            self.clock.tick(60)
             self.events = pygame.event.get()
             self.mouse_position = pygame.mouse.get_pos()
 
-            # STATE OF THE GAME
+            # DEBUG QUICK QUIT FROM GAME
 
-            # GAME LOGIC
+            #
+            if game.debug is True:
+                for event in self.events:
+                    # CLOSE PROGRAM VIA WINDOW CLOSE or ALT+F4
+                    if event.type == pygame.QUIT:
+                        game.running = False
+                    # ESCAPE KEY
+                    if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
+                        game.running = False
 
-            # INPUT
-
-            for event in self.events:
-                if event.type == pygame.QUIT:
-                    game.running = False
-                if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                    game.running = False
-
-            # DISPLAY background
-            background_image = pygame.sprite.Group(self.background_image)
-            background_image.update()
-            background_image.draw(screen)
-
-            # DISPLAYING
-            gameplay_menu.show_menu(screen, game)
-            main_menu.show_menu(screen, game)
-            player_creation_menu.show_menu(screen, game)
-            options.show_menu(screen, game)
-
-            pygame.display.flip()
+            # DISPLAYING MENU LAYERS
+            self.menu_gameplay.show_menu(screen, game)
+            self.menu_main.show_menu(screen, game)
+            self.menu_player_creation.show_menu(screen, game)
+            self.menu_options.show_menu(screen, game)
+            # FLIP BUFFER
+            #pygame.display.flip()  # Updates whole screen
+            pygame.display.update()  # Updates only changes between last and this frame
             # SOUND AND MUSIC
 
 
@@ -90,6 +93,7 @@ if __name__ == "__main__":
     # icon = pygame.image.load('gameicon.png')
     # pygame.display.set_icon(icon)
     # pygame.display.set_caption('Main Window Tutorial')
+
     # WINDOW SIZE
     screen_x = 1280
     screen_y = 720

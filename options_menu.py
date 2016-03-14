@@ -8,6 +8,7 @@ from sprite_effects import sprite_hover
 class OptionsMenu():
     def __init__(self):
         self.visible = False
+        self.input_control = False
         # Transparency
         self.transparency = pygame.sprite.Group(load_sprite('menu_transparency.png'))
         # BACKGROUND
