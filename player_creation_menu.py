@@ -118,7 +118,7 @@ class PlayerCreationMenu():
             )
             # INPUT
             for sprite in sprite_group_buttons:
-                    sprite.get_state2(game)
+                    sprite.get_state(game)
             # BUTTONS WORK if last pressed is true
             for button in sprite_group_buttons:
                 button.do_action(game)

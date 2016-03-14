@@ -89,7 +89,7 @@ class CreateSprite2(pygame.sprite.Sprite):
             file_name, file_ending = os.path.splitext(file_fullname)
             self.image_pressed = load_image2(file_name+"_pressed"+file_ending)
 
-    def get_state2(self, game):
+    def get_state(self, game):
 
         mouse = pygame.mouse.get_pos()
 
@@ -138,6 +138,3 @@ class CreateSprite2(pygame.sprite.Sprite):
                 self.image = self.image_hover
             else:
                 self.image = self.image_no_hover
-
-    def get_state(self, game):
-        print "boose"
