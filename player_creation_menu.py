@@ -110,19 +110,21 @@ class PlayerCreationMenu():
             #MENU LOGIC
             sprite_group_background = pygame.sprite.Group(self.background_image)
             sprite_group_buttons2 = pygame.sprite.Group(
-                self.button_face_next,
+                #self.button_face_next,
                 self.button_face_previous,
                 self.button_background_next,
                 self.button_background_previous,
                 self.button_finish
             )
 
-            for sprite in sprite_group_buttons2:
-                    sprite.get_state()
+            sprite_group_buttons3 = pygame.sprite.Group(
+                self.button_face_next
+            )
 
-            if game.input_control is "player_creation_menu":
-                for sprite in sprite_group_buttons2:
-                    sprite.do_action(game)
+            for sprite in sprite_group_buttons3:
+                    sprite.get_state2(game)
+
+
             """
             #INPUT
             if game.input_control is "player_creation_menu":
@@ -144,11 +146,13 @@ class PlayerCreationMenu():
             #UPDATE
             sprite_group_background.update()
             sprite_group_buttons2.update()
+            sprite_group_buttons3.update()
 
             #DISPLAY
             sprite_group_background.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons2.draw(screen)
+            sprite_group_buttons3.draw(screen)
 
     # BUTTON CLASSES
         # DOWN BAR

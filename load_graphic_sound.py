@@ -96,63 +96,51 @@ class CreateSprite2(pygame.sprite.Sprite):
                 # STATE OF IMAGE INPUT
 
         if self.rect.collidepoint(mouse):
+            self.mouse_hover = "Hover"
+        else:
+            self.mouse_hover = "No hover"
+
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                self.mouse_button_down = "MOUSE BUTTON DOWN"
+            else:
+                self.mouse_button_down = "MOUSE BUTTON NOT DOWN"
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                self.mouse_button_up = "MOUSE BUTTON UP"
+            else:
+                self.mouse_button_up = "MOUSE BUTTON NOT UP"
+        print "=============="
+        print self.mouse_hover
+        print self.mouse_button_down
+        print self.mouse_button_up
+
+        if self.image_hover is not None:
+            if self.rect.collidepoint(mouse):
+                self.image = self.image_hover
+                print "IMAGE CHANGE TO HOVER"
+            else:
+                self.image = self.image_no_hover
+                print "IMAGE CHANGE TO NO HOVER"
+
+        if self.image_pressed is not None:
             for event in events:
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    self.mouse_button_down = True
-                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    self.mouse_button_up = True
+                if self.rect.collidepoint(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN and \
+                        event.button == 1:
+                    self.image = self.image_pressed
+                    print "IMAGE CHANGE TO PRESSED"
                 else:
-                    self.mouse_hover = True
-                    if self.mouse_button_up is True:
-                        self.mouse_button_up = False
-                    if self.mouse_button_down is True:
-                        self.mouse_button_down = False
-        else:
-            if self.mouse_hover is True:
-                self.mouse_hover = False
-            if self.mouse_button_down is True:
-                self.mouse_button_down = False
-            if self.mouse_button_up is True:
-                self.mouse_button_up = False
-
-        input_state = [
-            self.mouse_hover,
-            self.mouse_button_up,
-            self.mouse_button_down
-        ]
-
-                # CHANGE IMAGE GRAPHIC STATE BASED ON INPUT
-
-            # hover and pressed is on
-        if self.image_pressed is not None and self.image_hover is not None:
-            if self.mouse_hover is True:
-                self.image = self.image_hover
-            elif self.mouse_button_down is True:
-                self.image = self.image_pressed
-            else:
-                if self.image != self.image:
                     self.image = self.image_no_hover
-            # pressed is on
-        elif self.image_pressed is not None:
-            if self.mouse_button_down is True:
-                self.image = self.image_pressed
-            else:
-                if self.image != self.image:
-                    self.image = self.image_no_hover
-            # hover is on
-        elif self.image_hover is not None:
-            if self.mouse_hover is True:
-                self.image = self.image_hover
-            else:
-                if self.image != self.image:
-                    self.image = self.image_no_hover
-            # hover and pressed is off
-        else:
-            pass
+                    print "IMAGE CHANGE TO NO HOVER"
 
-        # HOVER AND PRESSED
-        # HOVER
-        # NO HOVER NO PRESSED
+        print "=============="
+
+        for event in events:
+                if event.type == pygame.QUIT:
+                    game.running = False
+                if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
+                    game.running = False
 
     def get_state(self):
         # CHANGES IMAGE BASED ON IF IMAGE HAS HOVER IMAGE
