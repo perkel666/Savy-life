@@ -35,7 +35,7 @@ class MainMenu():
         # MainMenu transparency layer
         self.mm_transparency = pygame.sprite.Group(self.transparency)
 
-    def show_menu(self, screen, game, events):
+    def show_menu(self, screen, game):
         if game.main_menu_visible is True:
 
             # MENU LOGIC
@@ -74,7 +74,7 @@ class MainMenu():
             # INPUT
 
             if game.input_control is "main_menu":
-                for event in events:
+                for event in game.events:
 
                     # BUTTON CONTINUE
                     if event.type == pygame.MOUSEBUTTONUP and \

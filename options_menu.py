@@ -37,7 +37,7 @@ class OptionsMenu():
         self.options_body_main_background.rect.x = self.options_menu_background.rect.x + 275
         self.options_body_main_background.rect.y = self.options_menu_background.rect.y + 40
 
-    def show_menu(self, screen, game, events):
+    def show_menu(self, screen, game):
         if game.options_menu_visible is True:
 
             #
@@ -81,7 +81,7 @@ class OptionsMenu():
 
             # check if mouse hovers over button and if clicked with left mouse button DO SOMETHING
             if game.input_control is "options_menu":
-                for event in events:
+                for event in game.events:
 
                     # - CLOSE BUTTON (RIGHT CORNER)
                     if event.type == pygame.MOUSEBUTTONUP and \

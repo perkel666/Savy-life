@@ -105,7 +105,7 @@ class PlayerCreationMenu():
             'pc_button_finish.png',
             (self.bar_down[0]+900, self.bar_down[1]))
 
-    def show_menu(self, screen, game, events):
+    def show_menu(self, screen, game):
         if game.player_creation_menu_visible is True:
             #MENU LOGIC
             sprite_group_background = pygame.sprite.Group(self.background_image)
@@ -122,13 +122,13 @@ class PlayerCreationMenu():
             )
 
             for sprite in sprite_group_buttons3:
-                    sprite.get_state2(game, events)
+                    sprite.get_state2(game)
 
 
             """
             #INPUT
             if game.input_control is "player_creation_menu":
-                for event in events:
+                for event in game.events:
                     # BACKGROUND CLICK === > MAIN MENU
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \

@@ -24,7 +24,7 @@ class GameplayMenu():
         self.text_box.rect.y = self.down_bar_y
         self.text_box_position = (self.down_bar_x+290, self.down_bar_y)
 
-    def show_menu(self, screen, game, events):
+    def show_menu(self, screen, game):
         if game.gameplay_menu_visible is True:
             # MENU LOGIC
             # 1. Creating list of ui options
@@ -49,7 +49,7 @@ class GameplayMenu():
 
             # INPUT
             if game.input_control is "gameplay_menu":
-                for event in events:
+                for event in game.events:
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
                             game.player.player_background.rect.collidepoint(pygame.mouse.get_pos()):

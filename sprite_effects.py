@@ -11,10 +11,10 @@ def sprite_hover(sprite):
             sprite.image = sprite.image_no_hover
 
 
-def sprite_pressed(sprite, events):
+def sprite_pressed(sprite, game):
     #hover
     if sprite.rect.collidepoint(pygame.mouse.get_pos()):
-        for event in events:
+        for event in game.events:
             # pressed
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 sprite.image = sprite.image_pressed

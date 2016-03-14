@@ -89,81 +89,50 @@ class CreateSprite2(pygame.sprite.Sprite):
             file_name, file_ending = os.path.splitext(file_fullname)
             self.image_pressed = load_image2(file_name+"_pressed"+file_ending)
 
-    def get_state2(self, game, events):
+    def get_state2(self, game):
 
         mouse = pygame.mouse.get_pos()
 
-                # STATE OF IMAGE INPUT
+        # STATE OF IMAGE INPUT
 
         if self.rect.collidepoint(mouse):
-            self.mouse_hover = "Hover"
+            self.mouse_hover = True
         else:
-            self.mouse_hover = "No hover"
+            self.mouse_hover = False
 
-        for event in events:
+        for event in game.events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                self.mouse_button_down = "MOUSE BUTTON DOWN"
+                self.mouse_button_down = True
             else:
-                self.mouse_button_down = "MOUSE BUTTON NOT DOWN"
-        for event in events:
+                self.mouse_button_down = False
+        for event in game.events:
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                self.mouse_button_up = "MOUSE BUTTON UP"
+                self.mouse_button_up = True
             else:
-                self.mouse_button_up = "MOUSE BUTTON NOT UP"
-        print "=============="
-        print self.mouse_hover
-        print self.mouse_button_down
-        print self.mouse_button_up
+                self.mouse_button_up = False
 
+        # CHANGE IMAGE GRAPHIC BASED ON INPUT
 
-
-    def get_state(self, events):
-        # CHANGES IMAGE BASED ON IF IMAGE HAS HOVER IMAGE
-        # OR HOVER AND PRESSED IMAGE AND IF HAS NONE OF THOSE
-        # THEN REGISTERS IF PLAYER HAS CLICKED ON IMAGE FOR USE LATER WITH METHOD
-        # There is pressed and hover image
-
-        """
-        mouse_cursor = pygame.mouse.get_pos()
-        if self.image_hover is not None and self.image_pressed is not None:
-            if self.rect.collidepoint(mouse_cursor):
-                for event in events:
-                    # pressed
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        self.image = self.image_pressed
-                        self.last_pressed = True
-                    # not pressed
-                    else:
-                        self.image = self.image_hover
+        if self.image_pressed is not None and self.image_hover is not None:
+            if self.mouse_button_down is True and self.mouse_hover is True:
+                self.image = self.image_pressed
             else:
-                if self.image != self.image_no_hover:
-                    self.image = self.image_no_hover
+                if self.mouse_hover is True:
+                    self.image = self.image_hover
                 else:
-                    pass
-        # There is hover but there isn't pressed image
-        elif self.image_hover is not None and self.image_pressed is None:
-            if self.rect.collidepoint(mouse_cursor):
-                self.image = self.image_hover
-                for event in events:
-                    # pressed
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        self.last_pressed = True
-            else:
-                if self.image != self.image_no_hover:
                     self.image = self.image_no_hover
 
+        elif self.image_pressed is not None and self.image_hover is None:
+            if self.mouse_button_down is True and self.mouse_hover is True:
+                self.image = self.image_pressed
+            else:
+                self.image = self.image_no_hover
 
-            #if self.rect.collidepoint(pygame.mouse.get_pos()):
-                #self.image = self.image_hover
-            #else:
-                #if self.image != self.image_no_hover:
-                    #self.image = self.image_no_hover
+        elif self.image_pressed is None and self.image_hover is not None:
+            if self.mouse_hover is True:
+                self.image = self.image_hover
+            else:
+                self.image = self.image_no_hover
 
-        # There aren't any other images
-        else:
-            if self.rect.collidepoint(mouse_cursor):
-                for event in events:
-                    # pressed
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        self.last_pressed = True
-        """
+    def get_state(self, game):
+        print "boose"
