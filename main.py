@@ -49,6 +49,7 @@ class Game(object):
         while self.running is True:
 
             clock.tick(60)
+            events = pygame.event.get()
 
             # STATE OF THE GAME
 
@@ -56,16 +57,22 @@ class Game(object):
 
             # INPUT
 
+            for event in events:
+                if event.type == pygame.QUIT:
+                    game.running = False
+                if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
+                    game.running = False
+
             # DISPLAY background
             background_image = pygame.sprite.Group(self.background_image)
             background_image.update()
             background_image.draw(screen)
 
             # DISPLAYING
-            gameplay_menu.show_menu(screen, game)
-            main_menu.show_menu(screen, game)
-            player_creation_menu.show_menu(screen, game)
-            options.show_menu(screen, game)
+            gameplay_menu.show_menu(screen, game, events)
+            main_menu.show_menu(screen, game, events)
+            player_creation_menu.show_menu(screen, game, events)
+            options.show_menu(screen, game, events)
 
             pygame.display.flip()
             # SOUND AND MUSIC
