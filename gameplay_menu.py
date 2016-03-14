@@ -52,7 +52,7 @@ class GameplayMenu():
                 for event in game.events:
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            game.player.player_background.rect.collidepoint(pygame.mouse.get_pos()):
+                            game.player.player_background.rect.collidepoint(game.mouse_position):
                         game.main_menu_visible = True
                         game.gameplay_menu_visible = True
                         game.input_control = "main_menu"

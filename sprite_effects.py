@@ -13,7 +13,7 @@ def sprite_hover(sprite):
 
 def sprite_pressed(sprite, game):
     #hover
-    if sprite.rect.collidepoint(pygame.mouse.get_pos()):
+    if sprite.rect.collidepoint(game.mouse_position):
         for event in game.events:
             # pressed
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:

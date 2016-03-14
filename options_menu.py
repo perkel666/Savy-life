@@ -86,7 +86,7 @@ class OptionsMenu():
                     # - CLOSE BUTTON (RIGHT CORNER)
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.close_button.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.close_button.rect.collidepoint(game.mouse_position):
                         game.main_menu_visible = True
                         game.options_menu_visible = False
                         game.input_control = "main_menu"
@@ -95,7 +95,7 @@ class OptionsMenu():
                     # GAME BUTTON
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.button_game.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.button_game.rect.collidepoint(game.mouse_position):
                         self.button_game.selected = True
                         self.button_display.selected = False
                         self.button_sound.selected = False
@@ -104,7 +104,7 @@ class OptionsMenu():
                     # DISPLAY BUTTON
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.button_display.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.button_display.rect.collidepoint(game.mouse_position):
                         self.button_game.selected = False
                         self.button_display.selected = True
                         self.button_sound.selected = False
@@ -113,7 +113,7 @@ class OptionsMenu():
                     # SOUND BUTTON
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.button_sound.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.button_sound.rect.collidepoint(game.mouse_position):
                         self.button_game.selected = False
                         self.button_display.selected = False
                         self.button_sound.selected = True
@@ -122,7 +122,7 @@ class OptionsMenu():
                     # BACK BUTTON
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.button_back.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.button_back.rect.collidepoint(game.mouse_position):
                         game.main_menu_visible = True
                         game.options_menu_visible = False
                         self.button_game.selected = False

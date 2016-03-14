@@ -25,6 +25,7 @@ class Game(object):
         self.running = True
         # Event log
         self.events = None
+        self.mouse_position = None
         self.new_game_started = False
         self.player_creation_menu_visible = False
         self.main_menu_visible = True
@@ -52,6 +53,7 @@ class Game(object):
 
             clock.tick(60)
             self.events = pygame.event.get()
+            self.mouse_position = pygame.mouse.get_pos()
 
             # STATE OF THE GAME
 

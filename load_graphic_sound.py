@@ -91,11 +91,7 @@ class CreateSprite2(pygame.sprite.Sprite):
 
     def get_state(self, game):
 
-        mouse = pygame.mouse.get_pos()
-
-        # STATE OF IMAGE INPUT
-
-        if self.rect.collidepoint(mouse):
+        if self.rect.collidepoint(game.mouse_position):
             self.mouse_hover = True
         else:
             self.mouse_hover = False
@@ -117,7 +113,7 @@ class CreateSprite2(pygame.sprite.Sprite):
             self.last_pressed = False
 
         # CHANGE IMAGE GRAPHIC BASED ON INPUT
-
+        # sprite has flags : hover, pressed
         if self.image_pressed is not None and self.image_hover is not None:
             if self.mouse_button_down is True and self.mouse_hover is True:
                 self.image = self.image_pressed
@@ -126,13 +122,13 @@ class CreateSprite2(pygame.sprite.Sprite):
                     self.image = self.image_hover
                 else:
                     self.image = self.image_no_hover
-
+        # sprite has flags: pressed
         elif self.image_pressed is not None and self.image_hover is None:
             if self.mouse_button_down is True and self.mouse_hover is True:
                 self.image = self.image_pressed
             else:
                 self.image = self.image_no_hover
-
+        # sprite has flags: pressed
         elif self.image_pressed is None and self.image_hover is not None:
             if self.mouse_hover is True:
                 self.image = self.image_hover

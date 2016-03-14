@@ -79,7 +79,7 @@ class MainMenu():
                     # BUTTON CONTINUE
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.continue_button.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.continue_button.rect.collidepoint(game.mouse_position):
                         game.main_menu_visible = False
                         game.gameplay_menu_visible = True
                         game.input_control = "gameplay_menu"
@@ -88,7 +88,7 @@ class MainMenu():
                     # BUTTON NEW GAME
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.newgame_button.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.newgame_button.rect.collidepoint(game.mouse_position):
                         game.main_menu_visible = False
                         game.player_creation_menu_visible = True
                         game.gameplay_menu_visible = False
@@ -100,7 +100,7 @@ class MainMenu():
                     # BUTTON OPTIONS
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.option_button.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.option_button.rect.collidepoint(game.mouse_position):
 
                         game.main_menu_visible = False
                         game.options_menu_visible = True
@@ -110,7 +110,7 @@ class MainMenu():
                     # BUTTON QUIT
                     if event.type == pygame.MOUSEBUTTONUP and \
                             event.button == 1 and \
-                            self.quit_button.rect.collidepoint(pygame.mouse.get_pos()):
+                            self.quit_button.rect.collidepoint(game.mouse_position):
                         game.main_menu = False
                         game.running = False
                         print "quit"

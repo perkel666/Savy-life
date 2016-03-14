@@ -140,10 +140,6 @@ class PlayerCreationMenu():
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
 
-        def show_description(self):
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                return self.description
-
         def do_action(self, game):
             if self.last_pressed is True:
                 game.main_menu_visible = False
@@ -161,10 +157,6 @@ class PlayerCreationMenu():
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
 
-        def show_description(self):
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                return self.description
-
         def do_action(self, game):
             if self.last_pressed is True:
                 print "showing button !!!!"
@@ -177,10 +169,6 @@ class PlayerCreationMenu():
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
 
-        def show_description(self):
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                return self.description
-
         def do_action(self, game):
             pass
 
@@ -191,10 +179,6 @@ class PlayerCreationMenu():
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
 
-        def show_description(self):
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                return self.description
-
         def do_action(self, game):
             pass
 
@@ -204,10 +188,6 @@ class PlayerCreationMenu():
             self.description = "Previous background"
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
-
-        def show_description(self):
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                return self.description
 
         def do_action(self, game):
             pass
