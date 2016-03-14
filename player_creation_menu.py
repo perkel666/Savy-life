@@ -116,9 +116,14 @@ class PlayerCreationMenu():
                 self.button_background_previous,
                 self.button_finish
             )
+
             for sprite in sprite_group_buttons2:
                     sprite.get_state()
 
+            if game.input_control is "player_creation_menu":
+                for sprite in sprite_group_buttons2:
+                    sprite.do_action(game)
+            """
             #INPUT
             if game.input_control is "player_creation_menu":
                 for event in pygame.event.get():
@@ -135,7 +140,7 @@ class PlayerCreationMenu():
                             event.button == 1 and \
                             self.button_face_next.rect.collidepoint(pygame.mouse.get_pos()):
                         print "showing button !!!!"
-
+            """
             #UPDATE
             sprite_group_background.update()
             sprite_group_buttons2.update()
@@ -158,20 +163,19 @@ class PlayerCreationMenu():
             if self.rect.collidepoint(pygame.mouse.get_pos()):
                 return self.description
 
-        def do_action(self, game, event):
-            if event.type == pygame.MOUSEBUTTONUP and \
-                    event.button == 1 and \
-                    self.rect.collidepoint(pygame.mouse.get_pos()):
+        def do_action(self, game):
+            if self.last_pressed is True:
                 game.main_menu_visible = False
                 game.player_creation_menu_visible = False
                 game.gameplay_menu_visible = True
                 game.input_control = "gameplay_menu"
                 print "show game-play screen"
+                self.last_pressed = False
         # PORTRAIT
 
     class ButtonPortraitFaceNext(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
-            super(PlayerCreationMenu.ButtonPortraitFaceNext, self).__init__(name, hover=True)
+            super(PlayerCreationMenu.ButtonPortraitFaceNext, self).__init__(name, hover=True, pressed=True)
             self.description = "Next face"
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
@@ -180,8 +184,10 @@ class PlayerCreationMenu():
             if self.rect.collidepoint(pygame.mouse.get_pos()):
                 return self.description
 
-        def do_action(self, game, event):
-            pass
+        def do_action(self, game):
+            if self.last_pressed is True:
+                print "showing button !!!!"
+                self.last_pressed = False
 
     class ButtonPortraitFacePrevious(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
@@ -208,7 +214,7 @@ class PlayerCreationMenu():
             if self.rect.collidepoint(pygame.mouse.get_pos()):
                 return self.description
 
-        def do_action(self, game, event):
+        def do_action(self, game):
             pass
 
     class ButtonPortraitBackgroundPrevious(CreateSprite2):
@@ -222,5 +228,5 @@ class PlayerCreationMenu():
             if self.rect.collidepoint(pygame.mouse.get_pos()):
                 return self.description
 
-        def do_action(self, game, event):
+        def do_action(self, game):
             pass
