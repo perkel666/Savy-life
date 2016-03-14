@@ -109,50 +109,27 @@ class PlayerCreationMenu():
         if game.player_creation_menu_visible is True:
             #MENU LOGIC
             sprite_group_background = pygame.sprite.Group(self.background_image)
-            sprite_group_buttons2 = pygame.sprite.Group(
-                #self.button_face_next,
+            sprite_group_buttons = pygame.sprite.Group(
+                self.button_face_next,
                 self.button_face_previous,
                 self.button_background_next,
                 self.button_background_previous,
                 self.button_finish
             )
-
-            sprite_group_buttons3 = pygame.sprite.Group(
-                self.button_face_next
-            )
-
-            for sprite in sprite_group_buttons3:
+            # INPUT
+            for sprite in sprite_group_buttons:
                     sprite.get_state2(game)
-
-
-            """
-            #INPUT
-            if game.input_control is "player_creation_menu":
-                for event in game.events:
-                    # BACKGROUND CLICK === > MAIN MENU
-                    if event.type == pygame.MOUSEBUTTONUP and \
-                            event.button == 1 and \
-                            self.button_finish.rect.collidepoint(pygame.mouse.get_pos()):
-                        game.main_menu_visible = False
-                        game.player_creation_menu_visible = False
-                        game.gameplay_menu_visible = True
-                        game.input_control = "gameplay_menu"
-                        print "show game-play screen"
-                    elif event.type == pygame.MOUSEBUTTONUP and \
-                            event.button == 1 and \
-                            self.button_face_next.rect.collidepoint(pygame.mouse.get_pos()):
-                        print "showing button !!!!"
-            """
+            # BUTTONS WORK if last pressed is true
+            for button in sprite_group_buttons:
+                button.do_action(game)
             #UPDATE
             sprite_group_background.update()
-            sprite_group_buttons2.update()
-            sprite_group_buttons3.update()
+            sprite_group_buttons.update()
 
             #DISPLAY
             sprite_group_background.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
-            sprite_group_buttons2.draw(screen)
-            sprite_group_buttons3.draw(screen)
+            sprite_group_buttons.draw(screen)
 
     # BUTTON CLASSES
         # DOWN BAR

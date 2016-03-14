@@ -111,6 +111,11 @@ class CreateSprite2(pygame.sprite.Sprite):
             else:
                 self.mouse_button_up = False
 
+        if self.mouse_button_up is True and self.mouse_hover is True:
+            self.last_pressed = True
+        else:
+            self.last_pressed = False
+
         # CHANGE IMAGE GRAPHIC BASED ON INPUT
 
         if self.image_pressed is not None and self.image_hover is not None:
