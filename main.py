@@ -49,10 +49,6 @@ class Game(object):
         ########### OLD
         # player creation
         self.player = Player()
-        player_portrait_list = os.listdir('data/art/player/head')
-        player_background_list = os.listdir('data/art/player/backgrounds')           # REWORK
-        self.player.player_portrait = load_sprite(player_portrait_list[1])
-        self.player.player_background = load_sprite(player_background_list[2])
         ########## OLD
 
     def main(self, screen):

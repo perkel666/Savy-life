@@ -111,7 +111,7 @@ class MainMenu():
         def __init__(self, name):
             super(MainMenu.BackgroundTransparent, self).__init__(name)
             self.description = "Background transparency"
-            self.visible = False
+            self.visible = True
 
     # MAIN MENU BACKGROUND IMAGE BEFORE START OF GAME-PLAY
     class MenuBackground(CreateSprite2):

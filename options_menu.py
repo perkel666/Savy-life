@@ -1,6 +1,6 @@
 __author__ = 'Perkel'
 
-import pygame
+
 from load_graphic_sound import *
 from sprite_effects import sprite_hover
 

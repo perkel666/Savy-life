@@ -16,8 +16,8 @@ class Player():
         self.sex = "male"
         self.money = 0
         # Portrait
-        self.player_portrait = load_sprite('player-001.png')
-        self.player_background = load_sprite('player_background_001.png')
+        self.player_portrait = Player.PlayerFace('player-001.png')
+        self.player_background = Player.PlayerBackground('player_background_001.png')
         # Base statistics
         self.strenght = 5
         self.endurance = 5
@@ -50,6 +50,29 @@ class Player():
         #DISPLAY
         layer_background.draw(screen)
         layer_face.draw(screen)
+
+    class PlayerBackground(CreateSprite2):
+        def __init__(self, name):
+            super(Player.PlayerBackground, self).__init__(name)
+            self.description = "Next background"
+
+        def do_action(self, game):
+            if self.last_pressed is True:
+                game.main_menu_visible = True
+                game.gameplay_menu_visible = True
+                game.input_control = "main_menu"
+                game.menu_main.main_menu_background.visible = False
+                print "show main menu"
+                self.last_pressed = False
+
+    class PlayerFace(CreateSprite2):
+        def __init__(self, name):
+            super(Player.PlayerFace, self).__init__(name)
+            self.description = "Next background"
+
+        def do_action(self, game):
+            pass
+
 
 
 class PlayerCreationMenu():
@@ -125,6 +148,7 @@ class PlayerCreationMenu():
 
     # BUTTON CLASSES
         # DOWN BAR
+
     class ButtonFinish(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
             super(PlayerCreationMenu.ButtonFinish, self).__init__(name, hover=True)

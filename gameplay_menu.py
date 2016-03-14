@@ -9,70 +9,112 @@ class GameplayMenu():
         self.visible = False
         self.input_control = False
 
-        ############## OLD
-        # UI ELEMENTS
-        self.text_box = TextBox()
-        self.gameplay_background = load_sprite('gameplay_background.png')
-        ##### UI ELEMENTS POSITION
-        # Down bar
-        self.down_bar_y = 525
-        self.down_bar_x = 10
+        # UI POSITIONING
+        self.ui_position_bar_down = (10, 525)
+        self.ui_position_text_box = (self.ui_position_bar_down[0]+290, self.ui_position_bar_down[1])
+        self.ui_position_player_portrait = (self.ui_position_bar_down[0]+10, self.ui_position_bar_down[1]+10)
 
-        # player portrait position
-        self.player_portrait_position = (self.down_bar_x+10, self.down_bar_y+10)
-        # text_box position
-        self.text_box.rect.x = self.down_bar_x + 290
-        self.text_box.rect.y = self.down_bar_y
-        self.text_box_position = (self.down_bar_x+290, self.down_bar_y)
-        ############# OLD
+        # UI INITIALIZATION
+        self.ui_background = GameplayMenu.UiBackground('gameplay_background.png')
+        self.ui_text_box = GameplayMenu.UiTextBox('text_box.png')
+        # self.ui_portrait_player = later i will move portrait here for now it is in game.player....
 
     def show_menu(self, screen, game):
         if game.gameplay_menu_visible is True:
 
+            # LOCALS
 
+            layer_background = pygame.sprite.Group()
+            layer_gameplay_background = pygame.sprite.Group()
+            layer_gameplay_layer_0 = pygame.sprite.Group()
+            layer_gameplay_layer_1 = pygame.sprite.Group()
+            layer_gameplay_layer_2 = pygame.sprite.Group()
+            layer_gameplay_layer_3 = pygame.sprite.Group()
+            layer_bar_down_background = pygame.sprite.Group()
+            layer_bar_down_bottom = pygame.sprite.Group()
+            layer_bar_down_top = pygame.sprite.Group()
 
-            ############ OLD
-            # MENU LOGIC
-            # 1. Creating list of ui options
-            ui_elements_list_front = [
-                self.text_box
-            ]
-            # 2. Creating list of visible menu options according to self.visible in button
+            # POSITIONING UI
 
-            ui_elements_visible_list_front = []
-            for ui_element in ui_elements_list_front:
-                if ui_element.visible is True:
-                    ui_elements_visible_list_front.append(ui_element)
-            # 3. Creating Buttons sprite group from menu_options_active and adding it to button layer
+            game.player.player_background.rect.x,\
+                game.player.player_background.rect.y = self.ui_position_player_portrait
 
-            ui_elements_front = pygame.sprite.Group()
-            for ui_element in ui_elements_visible_list_front:
-                ui_elements_front.add(ui_element)
+            game.player.player_portrait.rect.x, \
+                game.player.player_portrait.rect.y = self.ui_position_player_portrait
 
-            # 4. Background spriteGroup
-            background = pygame.sprite.Group()
-            background.add(self.gameplay_background)
+            self.ui_text_box.rect.x, self.ui_text_box.rect.y = self.ui_position_text_box
 
-            # INPUT
+            # ADD SPRITES TO LAYERS
+
+            layer_background = pygame.sprite.Group(self.ui_background)
+            layer_bar_down_bottom = pygame.sprite.Group(game.player.player_background)
+            layer_bar_down_top = pygame.sprite.Group(
+                self.ui_text_box,
+                game.player.player_portrait
+            )
+
             if game.input_control is "gameplay_menu":
-                for event in game.events:
-                    if event.type == pygame.MOUSEBUTTONUP and \
-                            event.button == 1 and \
-                            game.player.player_background.rect.collidepoint(game.mouse_position):
-                        game.main_menu_visible = True
-                        game.gameplay_menu_visible = True
-                        game.input_control = "main_menu"
-                        print "show main menu"
-            # UPDATE GRAPHIC
-            background.update()
-            ui_elements_front.update()
-            # DISPLAY
-            background.draw(screen)
-            #ui_elements_front.draw(screen)
-            game.player.show_player_portrait(self.player_portrait_position, screen)
-            self.text_box.show_text_box(self.text_box_position, screen)
+                game.player.player_background.get_state(game)
 
-            ########### OLD
+            if game.input_control is "gameplay_menu":
+                game.player.player_background.do_action(game)
+
+            # UPDATE SPRITE LAYERS
+
+            layer_background.update()
+            layer_gameplay_background.update()
+            layer_gameplay_layer_0.update()
+            layer_gameplay_layer_1.update()
+            layer_gameplay_layer_2.update()
+            layer_gameplay_layer_3.update()
+            layer_bar_down_background.update()
+            layer_bar_down_bottom.update()
+            layer_bar_down_top.update()
+
+            # DISPLAY
+
+            layer_background.draw(screen)
+            layer_gameplay_background.draw(screen)
+            layer_gameplay_layer_0.draw(screen)
+            layer_gameplay_layer_1.draw(screen)
+            layer_gameplay_layer_2.draw(screen)
+            layer_gameplay_layer_3.draw(screen)
+            layer_bar_down_background.draw(screen)
+            layer_bar_down_bottom.draw(screen)
+            layer_bar_down_top.draw(screen)
+
+    ##################################
+    # CLASSES used in GameplayMenu() #
+    ##################################
+
+    class UiPlayerPortrait(CreateSprite2):
+        def __init__(self, name):
+            super(GameplayMenu.UiPlayerPortrait, self).__init__(name)
+            self.description = "Player portrait"
+
+        def do_action(self, game):
+            if self.last_pressed is True:
+                self.last_pressed = False
+
+    class UiTextBox(CreateSprite2):
+        def __init__(self, name):
+            super(GameplayMenu.UiTextBox, self).__init__(name)
+            self.description = "Text box"
+
+        def do_action(self, game):
+            if self.last_pressed is True:
+                self.last_pressed = False
+
+    class UiBackground(CreateSprite2):
+        def __init__(self, name):
+            super(GameplayMenu.UiBackground, self).__init__(name)
+            self.description = "Background"
+
+        def do_action(self, game):
+            if self.last_pressed is True:
+                self.last_pressed = False
+
+#################################################################           OLD
 
 
 class PlayerPortrait(pygame.sprite.Sprite):
@@ -105,3 +147,5 @@ class GameplayScreen(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image('gameplay_screen')
         self.visible = True
+
+###############################################################                 OLD
