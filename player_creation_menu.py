@@ -134,9 +134,7 @@ class PlayerCreationMenu():
             # INPUT
             for sprite in sprite_group_buttons:
                     sprite.get_state(game)
-            # BUTTONS WORK if last pressed is true
-            for button in sprite_group_buttons:
-                button.do_action(game)
+
             #UPDATE
             sprite_group_background.update()
             sprite_group_buttons.update()
@@ -145,6 +143,10 @@ class PlayerCreationMenu():
             sprite_group_background.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)
+
+            # BUTTONS WORK if last pressed is true
+            for button in sprite_group_buttons:
+                button.do_action(game)
 
     # BUTTON CLASSES
         # DOWN BAR

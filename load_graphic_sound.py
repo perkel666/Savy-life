@@ -74,9 +74,6 @@ class CreateSprite2(pygame.sprite.Sprite):
         # State in response to input
         self.last_pressed = False
         # State of buttons
-        self.mouse_hover = False
-        self.mouse_button_down = False
-        self.mouse_button_up = False
 
         if hover is True:
             name_path = find(name)
@@ -91,23 +88,31 @@ class CreateSprite2(pygame.sprite.Sprite):
 
     def get_state(self, game):
 
-        if self.rect.collidepoint(game.mouse_position):
-            self.mouse_hover = True
-        else:
-            self.mouse_hover = False
+        # LOCALS
 
+        mouse_hover = False
+        mouse_button_down = False
+        mouse_button_up = False
+        #    is mouse over sprite ?
+        if self.rect.collidepoint(game.mouse_position):
+            mouse_hover = True
+        else:
+            mouse_hover = False
+        #    is mouse button is down ?
         for event in game.events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                self.mouse_button_down = True
+                mouse_button_down = True
             else:
-                self.mouse_button_down = False
+                mouse_button_down = False
+        #    is mouse button is up ?
         for event in game.events:
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                self.mouse_button_up = True
+                mouse_button_up = True
             else:
-                self.mouse_button_up = False
+                mouse_button_up = False
 
-        if self.mouse_button_up is True and self.mouse_hover is True:
+        #    If mouse is on sprite and button is pressed up
+        if mouse_button_up is True and mouse_hover is True:
             self.last_pressed = True
         else:
             self.last_pressed = False
@@ -115,22 +120,22 @@ class CreateSprite2(pygame.sprite.Sprite):
         # CHANGE IMAGE GRAPHIC BASED ON INPUT
         # sprite has flags : hover, pressed
         if self.image_pressed is not None and self.image_hover is not None:
-            if self.mouse_button_down is True and self.mouse_hover is True:
+            if mouse_button_down is True and mouse_hover is True:
                 self.image = self.image_pressed
             else:
-                if self.mouse_hover is True:
+                if mouse_hover is True:
                     self.image = self.image_hover
                 else:
                     self.image = self.image_no_hover
         # sprite has flags: pressed
         elif self.image_pressed is not None and self.image_hover is None:
-            if self.mouse_button_down is True and self.mouse_hover is True:
+            if mouse_button_down is True and mouse_hover is True:
                 self.image = self.image_pressed
             else:
                 self.image = self.image_no_hover
         # sprite has flags: pressed
         elif self.image_pressed is None and self.image_hover is not None:
-            if self.mouse_hover is True:
+            if mouse_hover is True:
                 self.image = self.image_hover
             else:
                 self.image = self.image_no_hover
