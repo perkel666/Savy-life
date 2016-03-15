@@ -1,5 +1,6 @@
 __author__ = 'perkel666'
 import pygame
+import random
 from load_graphic_sound import *
 from sprite_effects import *
 import os
@@ -16,8 +17,17 @@ class Player():
         self.sex = "male"
         self.money = 0
         # Portrait
-        self.player_portrait = Player.PlayerFace('player-001.png')
-        self.player_background = Player.PlayerBackground('player_background_001.png')
+        self.path_faces = "data/art/player/head"
+        self.path_backgrounds = "data/art/player/backgrounds"
+
+        self.list_faces = os.listdir(self.path_faces)
+        self.list_background = os.listdir(self.path_backgrounds)
+        self.current_face = 0
+        self.current_background = 0
+
+        self.player_portrait = Player.PlayerFace(self.list_faces[self.current_face])
+        self.player_background = Player.PlayerBackground(self.list_background[self.current_background])
+
         # Base statistics
         self.strenght = 5
         self.endurance = 5
@@ -31,6 +41,39 @@ class Player():
         # Skills
         # Traits
         # Backstory
+
+    # CHANGING FACE AND BACKGROUND
+    def change_face_next(self, game):
+        self.current_face += 1
+        if self.current_face > len(self.list_faces)-1:
+            self.current_face = 0
+        print "current face ", self.current_face
+        portrait = game.player.PlayerFace(self.list_faces[self.current_face])
+        self.player_portrait = portrait
+
+    def change_face_previous(self, game):
+        self.current_face -= 1
+        if self.current_face < 0:
+            self.current_face = len(self.list_faces)-1
+        print "current face ", self.current_face
+        portrait = game.player.PlayerFace(self.list_faces[self.current_face])
+        self.player_portrait = portrait
+
+    def change_background_next(self, game):
+        self.current_background += 1
+        if self.current_background > len(self.list_background)-1:
+            self.current_background = 0
+        print "current background ", self.current_background
+        background = game.player.PlayerBackground(self.list_background[self.current_background])
+        self.player_background = background
+
+    def change_background_previous(self, game):
+        self.current_background -= 1
+        if self.current_background < 0:
+            self.current_background = len(self.list_background)-1
+        print "current background ", self.current_background
+        background = game.player.PlayerBackground(self.list_background[self.current_background])
+        self.player_background = background
 
     def show_player_portrait(self, (x_axis, y_axis), screen):
         #POSITION OF PORTRAIT
@@ -135,6 +178,10 @@ class PlayerCreationMenu():
             for sprite in sprite_group_buttons:
                     sprite.get_state(game)
 
+            # BUTTONS WORK if last pressed is true
+            for button in sprite_group_buttons:
+                button.do_action(game)
+
             #UPDATE
             sprite_group_background.update()
             sprite_group_buttons.update()
@@ -144,9 +191,7 @@ class PlayerCreationMenu():
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)
 
-            # BUTTONS WORK if last pressed is true
-            for button in sprite_group_buttons:
-                button.do_action(game)
+
 
     # BUTTON CLASSES
         # DOWN BAR
@@ -177,7 +222,8 @@ class PlayerCreationMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                print "showing button !!!!"
+                game.player.change_face_next(game)
+                print self.description
                 self.last_pressed = False
 
     class ButtonPortraitFacePrevious(CreateSprite2):
@@ -188,7 +234,10 @@ class PlayerCreationMenu():
             self.rect.y = position_tuple_x_y[1]
 
         def do_action(self, game):
-            pass
+            if self.last_pressed is True:
+                game.player.change_face_previous(game)
+                print self.description
+                self.last_pressed = False
 
     class ButtonPortraitBackgroundNext(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
@@ -198,7 +247,10 @@ class PlayerCreationMenu():
             self.rect.y = position_tuple_x_y[1]
 
         def do_action(self, game):
-            pass
+            if self.last_pressed is True:
+                game.player.change_background_next(game)
+                print self.description
+                self.last_pressed = False
 
     class ButtonPortraitBackgroundPrevious(CreateSprite2):
         def __init__(self, name,  position_tuple_x_y):
@@ -208,4 +260,7 @@ class PlayerCreationMenu():
             self.rect.y = position_tuple_x_y[1]
 
         def do_action(self, game):
-            pass
+            if self.last_pressed is True:
+                game.player.change_background_previous(game)
+                print self.description
+                self.last_pressed = False

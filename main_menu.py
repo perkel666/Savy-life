@@ -155,6 +155,7 @@ class MainMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
+                self.last_pressed = False
                 game.main_menu_visible = False
                 game.player_creation_menu_visible = True
                 game.gameplay_menu_visible = False
@@ -162,7 +163,6 @@ class MainMenu():
                 game.new_game_started = True
                 game.input_control = "player_creation_menu"
                 print "new game"
-                self.last_pressed = False
 
     # BUTTON - SAVE
     class ButtonSave(CreateSprite2):
@@ -195,11 +195,12 @@ class MainMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
+                self.last_pressed = False
                 game.main_menu_visible = False
                 game.options_menu_visible = True
                 game.input_control = "options_menu"
                 print "options"
-                self.last_pressed = False
+
 
     # BUTTON - QUIT
     class ButtonsQuit(CreateSprite2):
@@ -210,7 +211,7 @@ class MainMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
+                self.last_pressed = False
                 game.main_menu_visible = False
                 print "quit"
                 game.running = False
-                self.last_pressed = False
