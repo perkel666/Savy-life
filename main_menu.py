@@ -142,7 +142,7 @@ class MainMenu():
             if self.last_pressed is True:
                 game.main_menu_visible = False
                 game.gameplay_menu_visible = True
-                game.input_control = "gameplay_menu"
+                game.update_input_control = "gameplay_menu"
                 print "continue"
                 self.last_pressed = False
 
@@ -161,7 +161,7 @@ class MainMenu():
                 game.gameplay_menu_visible = False
                 game.menu_main.button_continue.visible = True
                 game.new_game_started = True
-                game.input_control = "player_creation_menu"
+                game.update_input_control = "player_creation_menu"
                 print "new game"
 
     # BUTTON - SAVE
@@ -198,7 +198,7 @@ class MainMenu():
                 self.last_pressed = False
                 game.main_menu_visible = False
                 game.options_menu_visible = True
-                game.input_control = "options_menu"
+                game.update_input_control = "options_menu"
                 print "options"
 
 

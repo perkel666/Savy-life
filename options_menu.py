@@ -171,7 +171,7 @@ class OptionsMenu():
                 self.last_pressed = False
                 game.main_menu_visible = True
                 game.options_menu_visible = False
-                game.input_control = "main_menu"
+                game.update_input_control = "main_menu"
                 print "button_back"
 
 

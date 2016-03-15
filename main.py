@@ -25,6 +25,7 @@ class Game(object):
         self.events = None
         self.mouse_position = None
         self.input_control = "main_menu"  # Current menu  OLD
+        self.update_input_control = None
         # DOES PLAYER USED NEW GAME ?
         self.new_game_started = False
 
@@ -78,6 +79,10 @@ class Game(object):
             # FLIP BUFFER
             #pygame.display.flip()  # Updates whole screen
             pygame.display.update()  # Updates only changes between last and this frame
+
+            # OUTPUT
+            if self.update_input_control is not None:
+                self.input_control = self.update_input_control
             # SOUND AND MUSIC
 
 

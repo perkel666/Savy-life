@@ -103,7 +103,7 @@ class Player():
             if self.last_pressed is True:
                 game.main_menu_visible = True
                 game.gameplay_menu_visible = True
-                game.input_control = "main_menu"
+                game.update_input_control = "main_menu"
                 game.menu_main.main_menu_background.visible = False
                 print "show main menu"
                 self.last_pressed = False
@@ -115,7 +115,6 @@ class Player():
 
         def do_action(self, game):
             pass
-
 
 
 class PlayerCreationMenu():
@@ -192,7 +191,6 @@ class PlayerCreationMenu():
             sprite_group_buttons.draw(screen)
 
 
-
     # BUTTON CLASSES
         # DOWN BAR
 
@@ -208,7 +206,7 @@ class PlayerCreationMenu():
                 game.main_menu_visible = False
                 game.player_creation_menu_visible = False
                 game.gameplay_menu_visible = True
-                game.input_control = "gameplay_menu"
+                game.update_input_control = "gameplay_menu"
                 print "show game-play screen"
                 self.last_pressed = False
         # PORTRAIT
