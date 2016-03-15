@@ -113,39 +113,3 @@ class GameplayMenu():
         def do_action(self, game):
             if self.last_pressed is True:
                 self.last_pressed = False
-
-#################################################################           OLD
-
-
-class PlayerPortrait(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('player-001.png')
-        self.visible = True
-
-
-class TextBox(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('text_box.png')
-        self.background = load_sprite('text_box.png')
-        self.visible = True
-        self.current_text = "Random text SOMETHING BIG I THINK"
-
-    def show_text_box(self, (x_pos, y_pos), screen):
-        self.background.rect.x = x_pos
-        self.background.rect.y = y_pos
-        text_position_x = x_pos+5
-        text_position_y = y_pos+5
-        sprite = pygame.sprite.Group(self.background)
-        sprite.update()
-        sprite.draw(screen)
-
-
-class GameplayScreen(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('gameplay_screen')
-        self.visible = True
-
-###############################################################                 OLD
