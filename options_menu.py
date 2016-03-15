@@ -25,9 +25,9 @@ class OptionsMenu():
         self.ui_button_sound = OptionsMenu.UIButtonSound('button_sound.png')
         self.ui_button_back = OptionsMenu.UIButtonBack('button_back.png')
                     # buttons submenus
-        self.ui_submenu_game = OptionsMenu.UIGameBackground('options_menu_body.png')
-        self.ui_submenu_display = OptionsMenu.UIDisplayBackground('options_menu_body.png')
-        self.ui_submenu_sound = OptionsMenu.UISoundBackground('options_menu_body.png')
+        self.ui_submenu_game = OptionsMenu.UIGameBackground('body_game.png')
+        self.ui_submenu_display = OptionsMenu.UIDisplayBackground('body_display.png')
+        self.ui_submenu_sound = OptionsMenu.UISoundBackground('body_sound.png')
                     # lists
         self.ui_buttons_list = [
             self.ui_button_game,
@@ -138,8 +138,11 @@ class OptionsMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                print "button_game"
                 self.last_pressed = False
+                game.menu_options.ui_submenu_game.visible = True
+                game.menu_options.ui_submenu_display.visible = False
+                game.menu_options.ui_submenu_sound.visible = False
+                print "button_game"
 
     class UIButtonDisplay(CreateSprite2):
         def __init__(self, name):
@@ -148,8 +151,11 @@ class OptionsMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                print "button_display"
                 self.last_pressed = False
+                game.menu_options.ui_submenu_game.visible = False
+                game.menu_options.ui_submenu_display.visible = True
+                game.menu_options.ui_submenu_sound.visible = False
+                print "button_display"
 
     class UIButtonSound(CreateSprite2):
         def __init__(self, name):
@@ -158,8 +164,11 @@ class OptionsMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                print "button_sound"
                 self.last_pressed = False
+                game.menu_options.ui_submenu_game.visible = False
+                game.menu_options.ui_submenu_display.visible = False
+                game.menu_options.ui_submenu_sound.visible = True
+                print "button_sound"
 
     class UIButtonBack(CreateSprite2):
         def __init__(self, name):
@@ -173,7 +182,6 @@ class OptionsMenu():
                 game.options_menu_visible = False
                 game.update_input_control = "main_menu"
                 print "button_back"
-
 
         # background to option right screens
     class UIGameBackground(CreateSprite2):
