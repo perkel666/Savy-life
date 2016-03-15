@@ -20,6 +20,7 @@ class Game(object):
         self.debug = True
         # GAME INITIALIZATION
         self.running = True
+        self.fullscreen = None
         # INPUT INITIALIZATION
         self.clock = pygame.time.Clock()
         self.events = None
@@ -83,10 +84,21 @@ class Game(object):
             # OUTPUT
             if self.update_input_control is not None:
                 self.input_control = self.update_input_control
+
             # SOUND AND MUSIC
+
+            # Switch game res
+            if self.fullscreen is not None:
+                if self.fullscreen is True:
+                    pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
+                    self.fullscreen = None
+                elif self.fullscreen is False:
+                    pygame.display.set_mode((1280, 720))
+                    self.fullscreen = None
 
 
 ##############################################################################
+
 
 if __name__ == "__main__":
     pygame.init()
