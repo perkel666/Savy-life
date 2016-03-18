@@ -145,16 +145,16 @@ class OptionsMenu():
     ##################################
 
         # first screen
-    class UITransparency(CreateSprite2):
+    class UITransparency(Button):
         def __init__(self, name):
             super(OptionsMenu.UITransparency, self).__init__(name)
 
-    class UIBackground(CreateSprite2):
+    class UIBackground(Button):
         def __init__(self, name):
             super(OptionsMenu.UIBackground, self).__init__(name)
 
         # buttons main
-    class UIButtonGame(CreateSprite2):
+    class UIButtonGame(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonGame, self).__init__(name, hover=True)
             self.visible = True
@@ -167,7 +167,7 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_sound.visible = False
                 print "button_game"
 
-    class UIButtonDisplay(CreateSprite2):
+    class UIButtonDisplay(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonDisplay, self).__init__(name, hover=True)
             self.visible = True
@@ -180,7 +180,7 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_sound.visible = False
                 print "button_display"
 
-    class UIButtonSound(CreateSprite2):
+    class UIButtonSound(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonSound, self).__init__(name, hover=True)
             self.visible = True
@@ -193,7 +193,7 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_sound.visible = True
                 print "button_sound"
 
-    class UIButtonBack(CreateSprite2):
+    class UIButtonBack(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonBack, self).__init__(name, hover=True)
             self.visible = True
@@ -207,12 +207,12 @@ class OptionsMenu():
                 print "button_back"
 
                 # buttons display
-    class UIButtonDisplaySetMode(CreateSprite2):
+    class UIButtonDisplaySetMode(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonDisplaySetMode, self).__init__(name, hover=True)
             self.visible = False
-            self.image_on = CreateSprite2('button_state_on.png', hover=True)
-            self.image_off = CreateSprite2('button_state_off.png', hover=True)
+            self.image_on = Button('button_state_on.png', hover=True)
+            self.image_off = Button('button_state_off.png', hover=True)
             self.on = False
 
         def do_action(self, game):
@@ -234,17 +234,17 @@ class OptionsMenu():
 
 
         # background to option right screens
-    class UIGameBackground(CreateSprite2):
+    class UIGameBackground(Button):
         def __init__(self, name):
             super(OptionsMenu.UIGameBackground, self).__init__(name)
             self.visible = True
 
-    class UIDisplayBackground(CreateSprite2):
+    class UIDisplayBackground(Button):
         def __init__(self, name):
             super(OptionsMenu.UIDisplayBackground, self).__init__(name)
             self.visible = False
 
-    class UISoundBackground(CreateSprite2):
+    class UISoundBackground(Button):
         def __init__(self, name):
             super(OptionsMenu.UISoundBackground, self).__init__(name)
             self.visible = False

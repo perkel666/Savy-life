@@ -1,12 +1,14 @@
 __author__ = 'perkel666'
 
-import pygame
-import os
-from load_graphic_sound import load_image
 from main_menu import *
 from gameplay_menu import GameplayMenu
 from options_menu import OptionsMenu
 from player_creation_menu import *
+from load_graphic_sound import *
+
+from data.scripts import data_filehandling
+
+files_list = data_filehandling.FileList()
 
 
 # MAIN GAME
@@ -56,21 +58,20 @@ class Game(object):
     def main(self, screen):
         # MAIN LOOP
         while self.running is True:
+
             self.clock.tick(60)
-            self.events = pygame.event.get()
             self.mouse_position = pygame.mouse.get_pos()
+            self.events = pygame.event.get()
 
             # DEBUG QUICK QUIT FROM GAME
-
-            #
-            if game.debug is True:
+            if self.debug is True:
                 for event in self.events:
-                    # CLOSE PROGRAM VIA WINDOW CLOSE or ALT+F4
+                    # Close via WINDOW CLOSE or ALT+F4
                     if event.type == pygame.QUIT:
-                        game.running = False
-                    # ESCAPE KEY
+                        self.running = False
+                    # Close via ESCAPE KEY
                     if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                        game.running = False
+                        self.running = False
 
             # DISPLAYING MENU LAYERS
             self.menu_gameplay.show_menu(screen, game)

@@ -94,7 +94,7 @@ class Player():
         layer_background.draw(screen)
         layer_face.draw(screen)
 
-    class PlayerBackground(CreateSprite2):
+    class PlayerBackground(Button):
         def __init__(self, name):
             super(Player.PlayerBackground, self).__init__(name)
             self.description = "Next background"
@@ -108,7 +108,7 @@ class Player():
                 print "show main menu"
                 self.last_pressed = False
 
-    class PlayerFace(CreateSprite2):
+    class PlayerFace(Button):
         def __init__(self, name):
             super(Player.PlayerFace, self).__init__(name)
             self.description = "Next background"
@@ -125,11 +125,9 @@ class PlayerCreationMenu():
         self.bar_down = (0, 600)
         # PORTRAIT POSITION
         self.portrait_position = (450, 100)
-
         self.player_portrait_position = (self.portrait_position[0]+100, self.portrait_position[1]+30)
 
         # Menu Background image
-
         self.background_image = load_sprite('player_creation_screen.png')
 
                 # BUTTONS - player portrait
@@ -162,24 +160,29 @@ class PlayerCreationMenu():
             'pc_button_finish.png',
             (self.bar_down[0]+900, self.bar_down[1]))
 
+        # BUTTONS LIST:
+        self.buttons_list = [
+            self.button_face_next,
+            self.button_face_previous,
+            self.button_background_next,
+            self.button_background_previous,
+            self.button_finish
+        ]
+
+
     def show_menu(self, screen, game):
         if game.player_creation_menu_visible is True:
             #MENU LOGIC
-            sprite_group_background = pygame.sprite.Group(self.background_image)
-            sprite_group_buttons = pygame.sprite.Group(
-                self.button_face_next,
-                self.button_face_previous,
-                self.button_background_next,
-                self.button_background_previous,
-                self.button_finish
-            )
-            # INPUT
-            for sprite in sprite_group_buttons:
-                    sprite.get_state(game)
 
-            # BUTTONS WORK if last pressed is true
-            for button in sprite_group_buttons:
-                button.do_action(game)
+            # INPUT
+            for button in self.buttons_list:
+                    button.get_state(game)
+
+            sprite_group_background = pygame.sprite.Group(self.background_image)
+            sprite_group_buttons = pygame.sprite.Group()
+
+            for button in self.buttons_list:
+                sprite_group_buttons.add(button)
 
             #UPDATE
             sprite_group_background.update()
@@ -190,11 +193,19 @@ class PlayerCreationMenu():
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)
 
+            # ACTION
+
+            # BUTTONS WORK if last pressed is true
+            for button in sprite_group_buttons:
+                button.do_action(game)
+
+
+
 
     # BUTTON CLASSES
         # DOWN BAR
 
-    class ButtonFinish(CreateSprite2):
+    class ButtonFinish(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(PlayerCreationMenu.ButtonFinish, self).__init__(name, hover=True)
             self.description = "Next face"
@@ -211,7 +222,7 @@ class PlayerCreationMenu():
                 self.last_pressed = False
         # PORTRAIT
 
-    class ButtonPortraitFaceNext(CreateSprite2):
+    class ButtonPortraitFaceNext(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(PlayerCreationMenu.ButtonPortraitFaceNext, self).__init__(name, hover=True, pressed=True)
             self.description = "Next face"
@@ -224,7 +235,8 @@ class PlayerCreationMenu():
                 print self.description
                 self.last_pressed = False
 
-    class ButtonPortraitFacePrevious(CreateSprite2):
+
+    class ButtonPortraitFacePrevious(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(PlayerCreationMenu.ButtonPortraitFacePrevious, self).__init__(name, hover=True, pressed=True)
             self.description = "Previous face"
@@ -237,9 +249,9 @@ class PlayerCreationMenu():
                 print self.description
                 self.last_pressed = False
 
-    class ButtonPortraitBackgroundNext(CreateSprite2):
+    class ButtonPortraitBackgroundNext(Button):
         def __init__(self, name,  position_tuple_x_y):
-            super(PlayerCreationMenu.ButtonPortraitBackgroundNext, self).__init__(name, hover=True, pressed=True)
+            super(PlayerCreationMenu.ButtonPortraitBackgroundNext, self).__init__(name, pressed=True)
             self.description = "Next background"
             self.rect.x = position_tuple_x_y[0]
             self.rect.y = position_tuple_x_y[1]
@@ -250,7 +262,7 @@ class PlayerCreationMenu():
                 print self.description
                 self.last_pressed = False
 
-    class ButtonPortraitBackgroundPrevious(CreateSprite2):
+    class ButtonPortraitBackgroundPrevious(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(PlayerCreationMenu.ButtonPortraitBackgroundPrevious, self).__init__(name, hover=True, pressed=True)
             self.description = "Previous background"

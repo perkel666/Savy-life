@@ -87,7 +87,7 @@ class GameplayMenu():
     # CLASSES used in GameplayMenu() #
     ##################################
 
-    class UiPlayerPortrait(CreateSprite2):
+    class UiPlayerPortrait(Button):
         def __init__(self, name):
             super(GameplayMenu.UiPlayerPortrait, self).__init__(name)
             self.description = "Player portrait"
@@ -96,7 +96,7 @@ class GameplayMenu():
             if self.last_pressed is True:
                 self.last_pressed = False
 
-    class UiTextBox(CreateSprite2):
+    class UiTextBox(Button):
         def __init__(self, name):
             super(GameplayMenu.UiTextBox, self).__init__(name)
             self.description = "Text box"
@@ -105,7 +105,7 @@ class GameplayMenu():
             if self.last_pressed is True:
                 self.last_pressed = False
 
-    class UiBackground(CreateSprite2):
+    class UiBackground(Button):
         def __init__(self, name):
             super(GameplayMenu.UiBackground, self).__init__(name)
             self.description = "Background"

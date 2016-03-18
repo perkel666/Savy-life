@@ -107,21 +107,21 @@ class MainMenu():
 
     # BACKGROUND ##################################
     # TRANSPARENT BACKGROUND ONCE YOU START NEWGAME
-    class BackgroundTransparent(CreateSprite2):
+    class BackgroundTransparent(Button):
         def __init__(self, name):
             super(MainMenu.BackgroundTransparent, self).__init__(name)
             self.description = "Background transparency"
             self.visible = True
 
     # MAIN MENU BACKGROUND IMAGE BEFORE START OF GAME-PLAY
-    class MenuBackground(CreateSprite2):
+    class MenuBackground(Button):
         def __init__(self, name):
             super(MainMenu.MenuBackground, self).__init__(name)
             self.description = "Background image"
             self.visible = True
 
     # MAIN MENU UI GRAPHIC
-    class MainMenuUI(CreateSprite2):
+    class MainMenuUI(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(MainMenu.MainMenuUI, self).__init__(name)
             self.description = "Main menu UI"
@@ -131,7 +131,7 @@ class MainMenu():
 
     # BUTTONS #########
     # BUTTON - CONTINUE
-    class ButtonContinue(CreateSprite2):
+    class ButtonContinue(Button):
         def __init__(self, name):
             super(MainMenu.ButtonContinue, self).__init__(name, hover=True)
             self.description = "Continue game"
@@ -147,7 +147,7 @@ class MainMenu():
                 self.last_pressed = False
 
     # BUTTON - NEW GAME
-    class ButtonNewGame(CreateSprite2):
+    class ButtonNewGame(Button):
         def __init__(self, name):
             super(MainMenu.ButtonNewGame, self).__init__(name, hover=True)
             self.description = "Start new game"
@@ -165,7 +165,7 @@ class MainMenu():
                 print "new game"
 
     # BUTTON - SAVE
-    class ButtonSave(CreateSprite2):
+    class ButtonSave(Button):
         def __init__(self, name):
             super(MainMenu.ButtonSave, self).__init__(name, hover=True)
             self.description = "Save progress"
@@ -176,7 +176,7 @@ class MainMenu():
                 self.last_pressed = False
 
     # BUTTON - LOAD
-    class ButtonLoad(CreateSprite2):
+    class ButtonLoad(Button):
         def __init__(self, name):
             super(MainMenu.ButtonLoad, self).__init__(name, hover=True)
             self.description = "Load progress"
@@ -187,7 +187,7 @@ class MainMenu():
                 self.last_pressed = False
 
     # BUTTON - OPTIONS
-    class ButtonOptions(CreateSprite2):
+    class ButtonOptions(Button):
         def __init__(self, name):
             super(MainMenu.ButtonOptions, self).__init__(name, hover=True)
             self.description = "Configure options"
@@ -201,9 +201,8 @@ class MainMenu():
                 game.update_input_control = "options_menu"
                 print "options"
 
-
     # BUTTON - QUIT
-    class ButtonsQuit(CreateSprite2):
+    class ButtonsQuit(Button):
         def __init__(self, name):
             super(MainMenu.ButtonsQuit, self).__init__(name, hover=True)
             self.description = "Quit"
