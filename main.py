@@ -7,7 +7,7 @@ from options_menu import OptionsMenu
 from player_creation_menu import *
 from load_graphic_sound import *
 
-from data.scripts import data_filehandling
+from scripts import data_filehandling
 
 files_list = data_filehandling.FileList()
 
