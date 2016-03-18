@@ -71,6 +71,9 @@ class CreateSprite2(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image2(name, True)
 
+        self.true_position_x = self.rect.x
+        self.true_position_y = self.rect.y
+
 
 class Button(CreateSprite2):
     def __init__(self, name, hover=None, pressed=None):

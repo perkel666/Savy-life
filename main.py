@@ -1,3 +1,4 @@
+from __future__ import division
 __author__ = 'perkel666'
 
 from main_menu import *
@@ -23,6 +24,8 @@ class Game(object):
         # GAME INITIALIZATION
         self.running = True
         self.fullscreen = None
+        # DELTA TIME
+        self.dt_seconds = None
         # INPUT INITIALIZATION
         self.clock = pygame.time.Clock()
         self.events = None
@@ -59,7 +62,8 @@ class Game(object):
         # MAIN LOOP
         while self.running is True:
 
-            self.clock.tick(60)
+            dt = self.clock.tick(120)
+            self.dt_seconds = dt/1000
             self.mouse_position = pygame.mouse.get_pos()
             self.events = pygame.event.get()
 

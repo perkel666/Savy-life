@@ -12,6 +12,10 @@ class MainMenu():
         self.visible = True
         self.input_control = True
 
+        # Scrolling directions
+        self.scrolling_direction = 1
+        self.scrolling_speed = 50
+
         # UI POSITIONING
         self.position_menu = (50, 50)
         self.position_buttons = (self.position_menu[0]+25, self.position_menu[1]+40)
@@ -20,11 +24,12 @@ class MainMenu():
         # MENU GRAPHIC
         self.main_menu_transparency = MainMenu.BackgroundTransparent('menu_transparency.png')
         self.main_menu_background = MainMenu.MenuBackground('background.jpg')
+        self.panorama = MainMenu.MenuBackground('panorama.jpg')
         self.main_menu_graphic = MainMenu.MainMenuUI('mainmenubackground.png', self.position_menu)
 
         self.menu_background_list = [
             self.main_menu_transparency,
-            self.main_menu_background]
+            self.panorama]
 
         # BUTTONS
         self.button_continue = MainMenu.ButtonContinue('main_menu_continue.png')
@@ -81,6 +86,14 @@ class MainMenu():
                 for button in menu_buttons_visible_list:
                     button.do_action(game)
 
+            if self.panorama.rect.x >= 0:
+                self.scrolling_direction = 1
+            elif self.panorama.rect.x <= -880:
+                self.scrolling_direction = -1
+
+            self.panorama.true_position_x -= self.scrolling_speed*game.dt_seconds*self.scrolling_direction
+            self.panorama.rect.x = self.panorama.true_position_x
+
             # ADD SPRITES TO LAYERS
             for background in menu_background_visible_list:
                 layer_main_menu_background.add(background)
@@ -111,7 +124,7 @@ class MainMenu():
         def __init__(self, name):
             super(MainMenu.BackgroundTransparent, self).__init__(name)
             self.description = "Background transparency"
-            self.visible = True
+            self.visible = False
 
     # MAIN MENU BACKGROUND IMAGE BEFORE START OF GAME-PLAY
     class MenuBackground(Button):
@@ -210,7 +223,15 @@ class MainMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                self.last_pressed = False
-                game.main_menu_visible = False
-                print "quit"
-                game.running = False
+                if game.new_game_started is True:
+                    game.gameplay_menu_visible = False
+                    game.menu_main.panorama.visible = True
+                    game.menu_main.main_menu_transparency.visible = False
+                    game.main_menu_visible = True
+                    game.update_input_control = "main_menu"
+                    game.new_game_started = False
+                else:
+                    self.last_pressed = False
+                    game.main_menu_visible = False
+                    print "quit"
+                    game.running = False

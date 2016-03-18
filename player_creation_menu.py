@@ -104,7 +104,8 @@ class Player():
                 game.main_menu_visible = True
                 game.gameplay_menu_visible = True
                 game.update_input_control = "main_menu"
-                game.menu_main.main_menu_background.visible = False
+                game.menu_main.panorama.visible = False
+                game.menu_main.main_menu_transparency.visible = True
                 print "show main menu"
                 self.last_pressed = False
 
