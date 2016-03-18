@@ -1,7 +1,7 @@
 __author__ = 'Perkel'
 
 
-from load_graphic_sound import *
+from scripts.load_graphic_sound import *
 
 
 class OptionsMenu():

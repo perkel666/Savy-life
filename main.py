@@ -1,15 +1,15 @@
 from __future__ import division
+
 __author__ = 'perkel666'
 
-from main_menu import *
-from gameplay_menu import GameplayMenu
-from options_menu import OptionsMenu
-from player_creation_menu import *
-from load_graphic_sound import *
+from scripts.main_menu import *
+from scripts.gameplay_menu import GameplayMenu
+from scripts.options_menu import OptionsMenu
+from scripts.player_creation_menu import *
+from scripts.load_graphic_sound import *
+from scripts.data_file_handling import FileList
 
-from scripts import data_filehandling
-
-files_list = data_filehandling.FileList()
+files_list = FileList()
 
 
 # MAIN GAME

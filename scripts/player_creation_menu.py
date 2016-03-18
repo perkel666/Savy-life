@@ -1,9 +1,8 @@
 __author__ = 'perkel666'
-import pygame
-import random
-from load_graphic_sound import *
-from sprite_effects import *
-import os
+
+from scripts.load_graphic_sound import *
+from scripts.sprite_effects import *
+
 
 
 ###

@@ -1,10 +1,6 @@
 __author__ = 'perkel666'
 
-import os
-import pygame
-from load_graphic_sound import *
-from sprite_effects import sprite_hover
-from player_creation_menu import Player
+from scripts.load_graphic_sound import *
 
 
 class MainMenu():

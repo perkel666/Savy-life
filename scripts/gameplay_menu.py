@@ -1,7 +1,6 @@
 __author__ = 'perkel666'
 
-import pygame
-from load_graphic_sound import *
+from scripts.load_graphic_sound import *
 
 
 class GameplayMenu():
