@@ -110,26 +110,18 @@ class MainMenu():
             layer_main_menu_ui_graphic.draw(screen)
             layer_main_menu_buttons.draw(screen)
 
-    ##############################
-    # CLASSES used in MainMenu() #
-    ##############################
-
-    # BACKGROUND ##################################
-    # TRANSPARENT BACKGROUND ONCE YOU START NEWGAME
     class BackgroundTransparent(Button):
         def __init__(self, name):
             super(MainMenu.BackgroundTransparent, self).__init__(name)
             self.description = "Background transparency"
             self.visible = False
 
-    # MAIN MENU BACKGROUND IMAGE BEFORE START OF GAME-PLAY
     class MenuBackground(Button):
         def __init__(self, name):
             super(MainMenu.MenuBackground, self).__init__(name)
             self.description = "Background image"
             self.visible = True
 
-    # MAIN MENU UI GRAPHIC
     class MainMenuUI(Button):
         def __init__(self, name,  position_tuple_x_y):
             super(MainMenu.MainMenuUI, self).__init__(name)
@@ -139,7 +131,7 @@ class MainMenu():
             self.visible = True
 
     # BUTTONS #########
-    # BUTTON - CONTINUE
+
     class ButtonContinue(Button):
         def __init__(self, name):
             super(MainMenu.ButtonContinue, self).__init__(name, hover=True)
@@ -155,7 +147,6 @@ class MainMenu():
                 print "continue"
                 self.last_pressed = False
 
-    # BUTTON - NEW GAME
     class ButtonNewGame(Button):
         def __init__(self, name):
             super(MainMenu.ButtonNewGame, self).__init__(name, hover=True)
@@ -173,7 +164,6 @@ class MainMenu():
                 game.update_input_control = "player_creation_menu"
                 print "new game"
 
-    # BUTTON - SAVE
     class ButtonSave(Button):
         def __init__(self, name):
             super(MainMenu.ButtonSave, self).__init__(name, hover=True)
@@ -184,7 +174,6 @@ class MainMenu():
             if self.last_pressed is True:
                 self.last_pressed = False
 
-    # BUTTON - LOAD
     class ButtonLoad(Button):
         def __init__(self, name):
             super(MainMenu.ButtonLoad, self).__init__(name, hover=True)
@@ -195,7 +184,6 @@ class MainMenu():
             if self.last_pressed is True:
                 self.last_pressed = False
 
-    # BUTTON - OPTIONS
     class ButtonOptions(Button):
         def __init__(self, name):
             super(MainMenu.ButtonOptions, self).__init__(name, hover=True)
@@ -210,7 +198,6 @@ class MainMenu():
                 game.update_input_control = "options_menu"
                 print "options"
 
-    # BUTTON - QUIT
     class ButtonsQuit(Button):
         def __init__(self, name):
             super(MainMenu.ButtonsQuit, self).__init__(name, hover=True)
@@ -229,5 +216,6 @@ class MainMenu():
                 else:
                     self.last_pressed = False
                     game.main_menu_visible = False
+                    game.key_mouse_event_list
                     print "quit"
                     game.running = False
