@@ -4,11 +4,6 @@ from scripts.load_graphic_sound import *
 from scripts.sprite_effects import *
 
 
-
-###
-### PLAYER CLASS
-###
-
 class Player():
     def __init__(self):
         # Basic info
@@ -100,8 +95,10 @@ class Player():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                game.main_menu_visible = True
-                game.gameplay_menu_visible = True
+
+                game.menu_main.visible = True
+                game.menu_gameplay.visible = True
+
                 game.update_input_control = "main_menu"
                 game.menu_main.panorama.visible = False
                 game.menu_main.main_menu_transparency.visible = True
@@ -171,7 +168,7 @@ class PlayerCreationMenu():
 
 
     def show_menu(self, screen, game):
-        if game.player_creation_menu_visible is True:
+        if game.menu_player_creation.visible is True:
             #MENU LOGIC
 
             # INPUT
@@ -214,12 +211,14 @@ class PlayerCreationMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                game.main_menu_visible = False
-                game.player_creation_menu_visible = False
-                game.gameplay_menu_visible = True
-                game.update_input_control = "gameplay_menu"
-                print "show game-play screen"
                 self.last_pressed = False
+
+                game.menu_main.visible = False
+                game.menu_gameplay.visible = True
+                game.menu_player_creation.visible = False
+
+                game.update_input_control = "gameplay_menu"
+
         # PORTRAIT
 
     class ButtonPortraitFaceNext(Button):

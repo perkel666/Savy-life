@@ -44,7 +44,7 @@ class MainMenu():
             self.button_quit]
 
     def show_menu(self, screen, game):
-        if game.main_menu_visible is True:
+        if self.visible is True:
             # LOCALS
             menu_background_visible_list = []
             menu_buttons_visible_list = []
@@ -141,11 +141,12 @@ class MainMenu():
 
         def do_action(self, game):
             if self.last_pressed is True:
-                game.main_menu_visible = False
-                game.gameplay_menu_visible = True
-                game.update_input_control = "gameplay_menu"
-                print "continue"
                 self.last_pressed = False
+
+                game.menu_main.visible = False
+                game.menu_gameplay.visible = True
+
+                game.update_input_control = "gameplay_menu"
 
     class ButtonNewGame(Button):
         def __init__(self, name):
@@ -156,13 +157,14 @@ class MainMenu():
         def do_action(self, game):
             if self.last_pressed is True:
                 self.last_pressed = False
-                game.main_menu_visible = False
-                game.player_creation_menu_visible = True
-                game.gameplay_menu_visible = False
+
+                game.menu_main.visible = False
+                game.menu_player_creation.visible = True
+                game.menu_gameplay.visible = False
+
                 game.menu_main.button_continue.visible = True
                 game.new_game_started = True
                 game.update_input_control = "player_creation_menu"
-                print "new game"
 
     class ButtonSave(Button):
         def __init__(self, name):
@@ -193,10 +195,11 @@ class MainMenu():
         def do_action(self, game):
             if self.last_pressed is True:
                 self.last_pressed = False
-                game.main_menu_visible = False
-                game.options_menu_visible = True
+
+                game.menu_main.visible = False
+                game.menu_options.visible = True
+
                 game.update_input_control = "options_menu"
-                print "options"
 
     class ButtonsQuit(Button):
         def __init__(self, name):
@@ -207,15 +210,17 @@ class MainMenu():
         def do_action(self, game):
             if self.last_pressed is True:
                 if game.new_game_started is True:
-                    game.gameplay_menu_visible = False
+
+                    game.menu_main.visible = True
+                    game.menu_gameplay.visible = False
+
+                    game.menu_main.button_continue.visible = False
                     game.menu_main.panorama.visible = True
                     game.menu_main.main_menu_transparency.visible = False
-                    game.main_menu_visible = True
+
                     game.update_input_control = "main_menu"
                     game.new_game_started = False
                 else:
                     self.last_pressed = False
                     game.main_menu_visible = False
-                    game.key_mouse_event_list
-                    print "quit"
                     game.running = False
