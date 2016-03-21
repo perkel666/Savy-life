@@ -19,7 +19,7 @@ class GameplayMenu():
         # self.ui_portrait_player = later i will move portrait here for now it is in game.player....
 
     def show_menu(self, screen, game):
-        if game.gameplay_menu_visible is True:
+        if self.visible is True:
 
             # LOCALS
 

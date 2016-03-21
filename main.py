@@ -12,7 +12,6 @@ from scripts.data_file_handling import FileList
 # GLOBALS
 files_list = FileList()
 
-
 class Game(object):
     def __init__(self):
         self.debug = True
@@ -30,15 +29,6 @@ class Game(object):
         self.new_game_started = False
         # PLAYER LOCAL
         self.player = None
-
-        ############ OLD
-        self.player_creation_menu_visible = False
-        self.main_menu_visible = True
-        self.gameplay_menu_visible = False
-        self.options_menu_visible = False                # REWORK
-        self.load_menu_visible = False
-        self.save_menu_visible = False
-        ############ OLD
 
         # MENU INITIALIZATION
         self.menu_gameplay = GameplayMenu()

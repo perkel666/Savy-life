@@ -44,7 +44,7 @@ class OptionsMenu():
             self.ui_submenu_sound]
 
     def show_menu(self, screen, game):
-        if game.options_menu_visible is True:
+        if game.menu_options.visible is True:
 
             # LOCALS
                     # position
@@ -165,7 +165,6 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_game.visible = True
                 game.menu_options.ui_submenu_display.visible = False
                 game.menu_options.ui_submenu_sound.visible = False
-                print "button_game"
 
     class UIButtonDisplay(Button):
         def __init__(self, name):
@@ -178,7 +177,6 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_game.visible = False
                 game.menu_options.ui_submenu_display.visible = True
                 game.menu_options.ui_submenu_sound.visible = False
-                print "button_display"
 
     class UIButtonSound(Button):
         def __init__(self, name):
@@ -191,7 +189,6 @@ class OptionsMenu():
                 game.menu_options.ui_submenu_game.visible = False
                 game.menu_options.ui_submenu_display.visible = False
                 game.menu_options.ui_submenu_sound.visible = True
-                print "button_sound"
 
     class UIButtonBack(Button):
         def __init__(self, name):
@@ -201,12 +198,14 @@ class OptionsMenu():
         def do_action(self, game):
             if self.last_pressed is True:
                 self.last_pressed = False
-                game.main_menu_visible = True
-                game.options_menu_visible = False
+
+                game.menu_main.visible = True
+                game.menu_options.visible = False
+
                 game.update_input_control = "main_menu"
-                print "button_back"
 
                 # buttons display
+
     class UIButtonDisplaySetMode(Button):
         def __init__(self, name):
             super(OptionsMenu.UIButtonDisplaySetMode, self).__init__(name, hover=True)
@@ -224,7 +223,6 @@ class OptionsMenu():
                     game.key_mouse_event_list.append("SYSTEM:FULLSCREEN")
                     self.image = self.image_on.image
                     self.image_hover = self.image_on.image_hover
-                    print "fullscreen ON"
 
                 elif self.on is True:
                     self.on = False
@@ -232,10 +230,9 @@ class OptionsMenu():
                     game.key_mouse_event_list.append("SYSTEM:WINDOWED")
                     self.image = self.image_off.image
                     self.image_hover = self.image_off.image_hover
-                    print "fullscreen OFF"
-
 
         # background to option right screens
+
     class UIGameBackground(Button):
         def __init__(self, name):
             super(OptionsMenu.UIGameBackground, self).__init__(name)
