@@ -100,11 +100,6 @@ class MainMenu():
             if self.main_menu_graphic.visible is True:
                 layer_main_menu_ui_graphic.add(self.main_menu_graphic)
 
-            # UPDATE LAYERS
-            layer_main_menu_background.update()
-            layer_main_menu_ui_graphic.update()
-            layer_main_menu_buttons.update()
-
             # DISPLAY LAYERS
             layer_main_menu_background.draw(screen)
             layer_main_menu_ui_graphic.draw(screen)

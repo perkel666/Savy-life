@@ -122,15 +122,6 @@ class OptionsMenu():
                 if button.visible is True:
                     layer_buttons_top.add(button)
 
-            # UPDATE
-
-            layer_transparency.update()
-            layer_background.update()
-            layer_submenus.update()
-            layer_buttons_down.update()
-            layer_buttons_top.update()
-            layer_submenu_buttons.update()
-
             # DISPLAY
 
             layer_transparency.draw(screen)

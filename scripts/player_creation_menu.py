@@ -95,7 +95,7 @@ class Player():
 
         def do_action(self, game):
             if self.last_pressed is True:
-
+                self.last_pressed = False
                 game.menu_main.visible = True
                 game.menu_gameplay.visible = True
 
@@ -103,7 +103,7 @@ class Player():
                 game.menu_main.panorama.visible = False
                 game.menu_main.main_menu_transparency.visible = True
                 print "show main menu"
-                self.last_pressed = False
+
 
     class PlayerFace(Button):
         def __init__(self, name):
@@ -181,11 +181,7 @@ class PlayerCreationMenu():
             for button in self.buttons_list:
                 sprite_group_buttons.add(button)
 
-            #UPDATE
-            sprite_group_background.update()
-            sprite_group_buttons.update()
-
-            #DISPLAY
+            # DISPLAY
             sprite_group_background.draw(screen)
             game.player.show_player_portrait(self.player_portrait_position, screen)
             sprite_group_buttons.draw(screen)

@@ -58,18 +58,6 @@ class GameplayMenu():
             if game.input_control is "gameplay_menu":
                 game.player.player_background.do_action(game)
 
-            # UPDATE SPRITE LAYERS
-
-            layer_background.update()
-            layer_gameplay_background.update()
-            layer_gameplay_layer_0.update()
-            layer_gameplay_layer_1.update()
-            layer_gameplay_layer_2.update()
-            layer_gameplay_layer_3.update()
-            layer_bar_down_background.update()
-            layer_bar_down_bottom.update()
-            layer_bar_down_top.update()
-
             # DISPLAY
 
             layer_background.draw(screen)

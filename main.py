@@ -12,6 +12,7 @@ from scripts.data_file_handling import FileList
 # GLOBALS
 files_list = FileList()
 
+
 class Game(object):
     def __init__(self):
         self.debug = True
@@ -41,49 +42,6 @@ class Game(object):
         self.player = Player()
         ########## OLD
 
-    def main(self, screen):
-        # MAIN LOOP
-        while self.running is True:
-
-            dt = self.clock.tick(120)
-            self.dt_seconds = dt/1000
-            self.mouse_position = pygame.mouse.get_pos()
-            self.events = pygame.event.get()
-
-            # DEBUG QUICK QUIT FROM GAME
-            if self.debug is True:
-                for event in self.events:
-                    # Close via WINDOW CLOSE or ALT+F4
-                    if event.type == pygame.QUIT:
-                        self.running = False
-                    # Close via ESCAPE KEY
-                    if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                        self.running = False
-
-            # DISPLAYING MENU LAYERS
-            self.menu_gameplay.show_menu(screen, game)
-            self.menu_main.show_menu(screen, game)
-            self.menu_player_creation.show_menu(screen, game)
-            self.menu_options.show_menu(screen, game)
-            # FLIP BUFFER
-            #pygame.display.flip()  # Updates whole screen
-            pygame.display.update()  # Updates only changes between last and this frame
-
-            # OUTPUT
-            if self.update_input_control is not None:
-                self.input_control = self.update_input_control
-
-            # SOUND AND MUSIC
-
-            # Switch game res
-            if self.fullscreen is not None:
-                if self.fullscreen is True:
-                    pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
-                    self.fullscreen = None
-                elif self.fullscreen is False:
-                    pygame.display.set_mode((1280, 720))
-                    self.fullscreen = None
-
     def main_loop(self):
         while self.running is True:
             self.start_frame()
@@ -108,45 +66,9 @@ class Game(object):
         self.key_mouse_event_list = []
 
     def get_input(self):
-        for event in self.events:
-            # Close via WINDOW CLOSE or ALT+F4
-            if event.type == pygame.QUIT:
-                self.running = False
-                self.game_events.append('SYSTEM:QUIT')
-            # Close via ESCAPE KEY
-            if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                self.running = False
-                self.game_events.append('SYSTEM:QUIT')
-            # mouse left click
-            if event.type == pygame.MOUSEBUTTONDOWN and event.key == 1:
-                self.key_mouse_event_list.append('lmb_down')
-            if event.type == pygame.MOUSEBUTTONUP and event.key == 1:
-                self.key_mouse_event_list.append('lmb_up')
-            # mouse right click
-            if event.type == pygame.MOUSEBUTTONDOWN and event.key == 3:
-                self.key_mouse_event_list.append('rmb_down')
-            if event.type == pygame.MOUSEBUTTONUP and event.key == 3:
-                self.key_mouse_event_list.append('rmb_up')
-            # mouse middle click
-            if event.type == pygame.MOUSEBUTTONDOWN and event.key == 2:
-                self.key_mouse_event_list.append('mmb_down')
-            if event.type == pygame.MOUSEBUTTONUP and event.key == 2:
-                self.key_mouse_event_list.append('mmb_up')
-            # mouse scroll up
-            if event.type == pygame.MOUSEBUTTONDOWN and event.key == 4:
-                self.key_mouse_event_list.append('mmb_down')
-            if event.type == pygame.MOUSEBUTTONUP and event.key == 4:
-                self.key_mouse_event_list.append('mmb_up')
-            # mouse scroll down
-            if event.type == pygame.MOUSEBUTTONDOWN and event.key == 5:
-                self.key_mouse_event_list.append('mmb_down')
-            if event.type == pygame.MOUSEBUTTONUP and event.key == 5:
-                self.key_mouse_event_list.append('mmb_up')
-            # SPACE
-            if event.type == pygame.KEYDOWN and pygame.K_SPACE:
-                self.key_mouse_event_list.append('k_space_up')
-            if event.type == pygame.KEYUP and pygame.K_SPACE:
-                self.key_mouse_event_list.append('k_space_down')
+        self.gi_debug()
+        self.gi_mouse()
+        self.gi_keys()
 
     def get_events(self):
         pass
@@ -154,6 +76,7 @@ class Game(object):
     def handle_events(self):
 
         self.check_system_events()
+        self.main_menu_events()
 
     def display(self):
 
@@ -167,6 +90,59 @@ class Game(object):
         # DISPLAY
         pygame.display.update()
 
+    def gi_debug(self):
+        for event in self.events:
+            # Close via WINDOW CLOSE or ALT+F4
+            if event.type == pygame.QUIT:
+                self.running = False
+                self.game_events.append('SYSTEM:QUIT')
+            # Close via ESCAPE KEY
+            if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
+                self.running = False
+                self.game_events.append('SYSTEM:QUIT')
+
+    def gi_mouse(self):
+        for event in self.events:
+            # mouse left click
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                self.key_mouse_event_list.append('lmb_down')
+                print "lmb"
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                self.key_mouse_event_list.append('lmb_up')
+            # mouse right click
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                self.key_mouse_event_list.append('rmb_down')
+                print "rmb"
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
+                self.key_mouse_event_list.append('rmb_up')
+            # mouse middle click
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2:
+                self.key_mouse_event_list.append('mmb_down')
+                print "mmb"
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 2:
+                self.key_mouse_event_list.append('mmb_up')
+            # mouse scroll up
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 4:
+                self.key_mouse_event_list.append('mmb_down')
+                print "scroll up"
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 4:
+                self.key_mouse_event_list.append('mmb_up')
+            # mouse scroll down
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 5:
+                self.key_mouse_event_list.append('mmb_down')
+                print "scroll down"
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 5:
+                self.key_mouse_event_list.append('mmb_up')
+
+    def gi_keys(self):
+        for event in self.events:
+            if event.type == pygame.KEYDOWN and pygame.K_SPACE:
+                self.key_mouse_event_list.append('k_space_up')
+                print "k_space_up"
+            if event.type == pygame.KEYUP and pygame.K_SPACE:
+                self.key_mouse_event_list.append('k_space_down')
+                print "k_space_down"
+
     def check_system_events(self):
 
         for event in list(set(self.key_mouse_event_list)):
@@ -178,12 +154,12 @@ class Game(object):
                 pygame.display.set_mode((1280, 720))
 
     def main_menu_events(self):
-        pass
 
+        if self.update_input_control is not None:
+            self.input_control = self.update_input_control
 
 
 ##############################################################################
-
 
 if __name__ == "__main__":
     pygame.init()
@@ -199,4 +175,5 @@ if __name__ == "__main__":
     # FULLSCREEN
     # screen = pygame.display.set_mode((screen_x, screen_y), pygame.FULLSCREEN)
     game = Game()
-    game.main(screen)
+    #game.main(screen)
+    game.main_loop()
