@@ -211,15 +211,17 @@ class OptionsMenu():
                 if self.on is False:
                     self.on = True
                     game.fullscreen = True
-                    game.key_mouse_event_list.append("SYSTEM:FULLSCREEN")
+                    game.key_mouse_event_list.append('SYSTEM:FULLSCREEN')
                     self.image = self.image_on.image
+                    self.image_no_hover = self.image_on.image
                     self.image_hover = self.image_on.image_hover
 
                 elif self.on is True:
                     self.on = False
                     game.fullscreen = False
-                    game.key_mouse_event_list.append("SYSTEM:WINDOWED")
+                    game.key_mouse_event_list.append('SYSTEM:WINDOWED')
                     self.image = self.image_off.image
+                    self.image_no_hover = self.image_off.image
                     self.image_hover = self.image_off.image_hover
 
         # background to option right screens

@@ -130,8 +130,8 @@ class Button(CreateSprite2):
             else:
                 mouse_button_down = False
         #    is mouse button is up ?
-        for event in events:
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+        for event in game.key_mouse_event_list:
+            if event == 'lmb_up':
                 mouse_button_up = True
             else:
                 mouse_button_up = False
@@ -147,9 +147,9 @@ class Button(CreateSprite2):
         # if there is pressed and hover image
         if self.type == 'hover,press':
             if self.rect.collidepoint(game.mouse_position):
-                for event in events:
+                for event in game.key_mouse_event_list:
                     # pressed
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if event == 'lmb_down':
                         self.image = self.image_pressed
                     # not pressed
                     else:
@@ -162,14 +162,13 @@ class Button(CreateSprite2):
         # if there is hover but there isn't pressed
         elif self.type == 'press':
             if self.rect.collidepoint(game.mouse_position):
-                if self.rect.collidepoint(game.mouse_position):
-                    for event in events:
-                        # pressed
-                        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                            self.image = self.image_pressed
-                        # not pressed
-                        else:
-                            self.image = self.image_no_hover
+                for event in events:
+                    # pressed
+                    if event == 'lmb_down':
+                        self.image = self.image_pressed
+                    # not pressed
+                    else:
+                        self.image = self.image_no_hover
 
         # if there is hover but there isn't pressed
         elif self.type == 'hover':

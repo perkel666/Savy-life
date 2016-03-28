@@ -34,7 +34,7 @@ class Player():
         self.stamina = self.endurance*20
         # Skills
         # Traits
-        # Backstory
+        # Back-story
 
     # CHANGING FACE AND BACKGROUND
     def change_face_next(self, game):
@@ -81,9 +81,6 @@ class Player():
         #CREATING LAYERS TO DISPLAY
         layer_background = pygame.sprite.Group(background)
         layer_face = pygame.sprite.Group(face)
-        #UPDATE SPRITES
-        layer_background.update()
-        layer_face.update()
         #DISPLAY
         layer_background.draw(screen)
         layer_face.draw(screen)
@@ -103,7 +100,6 @@ class Player():
                 game.menu_main.panorama.visible = False
                 game.menu_main.main_menu_transparency.visible = True
                 print "show main menu"
-
 
     class PlayerFace(Button):
         def __init__(self, name):
@@ -165,7 +161,6 @@ class PlayerCreationMenu():
             self.button_background_previous,
             self.button_finish
         ]
-
 
     def show_menu(self, screen, game):
         if game.menu_player_creation.visible is True:

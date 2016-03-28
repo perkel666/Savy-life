@@ -47,15 +47,14 @@ class Game(object):
             self.start_frame()
             self.get_input()
             self.get_events()
-            self.handle_events()
             self.display()
+            self.handle_events()
 
     def start_frame(self):
         """
         Initialization of basic lists, clock tick rate, calculating delta time,
         getting pygame kayboard/mouse events,
         cleaning up custom events list
-        :return:
         """
 
         dt = self.clock.tick(120)
@@ -81,14 +80,19 @@ class Game(object):
     def display(self):
 
         # GAMEPLAY
+
         # GAMEPLAY UI
+
         # MAIN UI
+        self.di_menu()
+        # DRAW
+        pygame.display.update()
+
+    def di_menu(self):
         self.menu_gameplay.show_menu(screen, game)
         self.menu_main.show_menu(screen, game)
         self.menu_player_creation.show_menu(screen, game)
         self.menu_options.show_menu(screen, game)
-        # DISPLAY
-        pygame.display.update()
 
     def gi_debug(self):
         for event in self.events:
@@ -135,23 +139,27 @@ class Game(object):
                 self.key_mouse_event_list.append('mmb_up')
 
     def gi_keys(self):
+        """
         for event in self.events:
             if event.type == pygame.KEYDOWN and pygame.K_SPACE:
-                self.key_mouse_event_list.append('k_space_up')
-                print "k_space_up"
-            if event.type == pygame.KEYUP and pygame.K_SPACE:
                 self.key_mouse_event_list.append('k_space_down')
-                print "k_space_down"
+                print 'k_space_down'
+            if event.type == pygame.KEYUP and pygame.K_SPACE:
+                self.key_mouse_event_list.append('k_space_up')
+                print 'k_space_up'
+        """
 
     def check_system_events(self):
 
-        for event in list(set(self.key_mouse_event_list)):
+        for event in self.key_mouse_event_list:
             if event == 'SYSTEM:QUIT':
                 self.running = False
-            if event == 'SYSTEM:FULLSCREEN':
+            elif event == 'SYSTEM:FULLSCREEN':
                 pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
-            if event == 'SYSTEM:WINDOWED':
+                print "changing to Fullscreen"
+            elif event == 'SYSTEM:WINDOWED':
                 pygame.display.set_mode((1280, 720))
+                print "changing to windowed"
 
     def main_menu_events(self):
 
