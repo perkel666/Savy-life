@@ -22,8 +22,10 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.events = None
         self.mouse_position = None
+
         self.key_mouse_event_list = []
         self.game_events = []
+
         self.input_control = "main_menu"  # Current menu input handling OLD
         self.update_input_control = None
         # DOES PLAYER USED NEW GAME ?
@@ -96,14 +98,17 @@ class Game(object):
 
     def gi_debug(self):
         for event in self.events:
-            # Close via WINDOW CLOSE or ALT+F4
+            # Close via WINDOW CLOSE
             if event.type == pygame.QUIT:
-                self.running = False
                 self.game_events.append('SYSTEM:QUIT')
-            # Close via ESCAPE KEY
-            if event.type == pygame.KEYDOWN and pygame.K_ESCAPE:
-                self.running = False
-                self.game_events.append('SYSTEM:QUIT')
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    print "QUIT"
+                    self.key_mouse_event_list.append('K_ESCAPE')
+                    self.game_events.append('SYSTEM:QUIT')
+                if event.key == pygame.K_SPACE:
+                    print "SPACE"
+                    self.key_mouse_event_list.append('K_SPACE')
 
     def gi_mouse(self):
         for event in self.events:
@@ -151,7 +156,7 @@ class Game(object):
 
     def check_system_events(self):
 
-        for event in self.key_mouse_event_list:
+        for event in self.game_events:
             if event == 'SYSTEM:QUIT':
                 self.running = False
             elif event == 'SYSTEM:FULLSCREEN':
