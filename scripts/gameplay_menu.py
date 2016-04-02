@@ -24,7 +24,6 @@ class GameplayMenu():
         if self.visible is True:
 
             # LOCALS
-
             layer_background = pygame.sprite.Group()
             layer_gameplay_background = pygame.sprite.Group()
             layer_gameplay_layer_0 = pygame.sprite.Group()
