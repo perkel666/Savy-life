@@ -187,9 +187,6 @@ class PlayerCreationMenu():
             for button in sprite_group_buttons:
                 button.do_action(game)
 
-
-
-
     # BUTTON CLASSES
         # DOWN BAR
 

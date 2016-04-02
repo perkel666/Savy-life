@@ -7,6 +7,7 @@ class GameplayMenu():
     def __init__(self):
         self.visible = False
         self.input_control = False
+        self.input_name = 'gameplay_menu'
 
         # UI POSITIONING
         self.ui_position_bar_down = (10, 525)
@@ -14,8 +15,9 @@ class GameplayMenu():
         self.ui_position_player_portrait = (self.ui_position_bar_down[0]+10, self.ui_position_bar_down[1]+10)
 
         # UI INITIALIZATION
-        self.ui_background = GameplayMenu.UiBackground('gameplay_background.png')
+        self.ui_background = GameplayMenu.UiBackground('gameplaybackground.jpg')
         self.ui_text_box = GameplayMenu.UiTextBox('text_box.png')
+        self.ui_downbar = load_sprite('downbar.jpg')
         # self.ui_portrait_player = later i will move portrait here for now it is in game.player....
 
     def show_menu(self, screen, game):
@@ -29,6 +31,7 @@ class GameplayMenu():
             layer_gameplay_layer_1 = pygame.sprite.Group()
             layer_gameplay_layer_2 = pygame.sprite.Group()
             layer_gameplay_layer_3 = pygame.sprite.Group()
+            layer_down_bar = pygame.sprite.Group()
             layer_bar_down_background = pygame.sprite.Group()
             layer_bar_down_bottom = pygame.sprite.Group()
             layer_bar_down_top = pygame.sprite.Group()
@@ -42,6 +45,8 @@ class GameplayMenu():
                 game.player.player_portrait.rect.y = self.ui_position_player_portrait
 
             self.ui_text_box.rect.x, self.ui_text_box.rect.y = self.ui_position_text_box
+
+            self.ui_downbar.rect.y = 470
 
             # ADD SPRITES TO LAYERS
 
@@ -58,6 +63,8 @@ class GameplayMenu():
             if game.input_control is "gameplay_menu":
                 game.player.player_background.do_action(game)
 
+            layer_down_bar.add(self.ui_downbar)
+
             # DISPLAY
 
             layer_background.draw(screen)
@@ -66,6 +73,7 @@ class GameplayMenu():
             layer_gameplay_layer_1.draw(screen)
             layer_gameplay_layer_2.draw(screen)
             layer_gameplay_layer_3.draw(screen)
+            layer_down_bar.draw(screen)
             layer_bar_down_background.draw(screen)
             layer_bar_down_bottom.draw(screen)
             layer_bar_down_top.draw(screen)

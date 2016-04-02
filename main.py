@@ -39,6 +39,13 @@ class Game(object):
         self.menu_options = OptionsMenu()
         self.menu_player_creation = PlayerCreationMenu()
 
+        self.main_menu_list = [
+            self.menu_gameplay,
+            self.menu_player_creation,
+            self.menu_main,
+            self.menu_options
+        ]
+
         ########### OLD
         # player creation
         self.player = Player()
@@ -103,12 +110,17 @@ class Game(object):
                 self.game_events.append('SYSTEM:QUIT')
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    print "QUIT"
+                    print "ESCAPE"
                     self.key_mouse_event_list.append('K_ESCAPE')
-                    self.game_events.append('SYSTEM:QUIT')
                 if event.key == pygame.K_SPACE:
                     print "SPACE"
                     self.key_mouse_event_list.append('K_SPACE')
+                if event.key == pygame.K_LALT:
+                    print 'LEFT ALT'
+                    self.key_mouse_event_list.append('K_LALT')
+                if event.key == pygame.K_F4:
+                    print 'F4'
+                    self.key_mouse_event_list.append('K_F4')
 
     def gi_mouse(self):
         for event in self.events:
